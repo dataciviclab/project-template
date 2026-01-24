@@ -1,11 +1,3 @@
----
-name: Task
-about: Task operativo del progetto
-title: "[TASK] "
-labels: []
-assignees: []
----
-
 ## 🎯 Obiettivo
 (Cosa deve esistere quando questa issue è chiusa)
 
