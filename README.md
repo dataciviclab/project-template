@@ -6,6 +6,14 @@
 ## Perché questo progetto
 (2–3 righe: perché questa domanda è rilevante ora)
 
+## Ruoli
+- Project Lead:
+- Data:
+- Metodo:
+- Viz:
+- QA:
+- Docs:
+
 ## Dataset utilizzati
 - Nome dataset — Fonte ufficiale — Periodo — Livello
 - Nome dataset — Fonte ufficiale — Periodo — Livello
@@ -24,5 +32,5 @@
 
 ## Link utili
 - Board progetto (GitHub Projects)
-- Spreadsheet progetto
-- Metodo DataCivicLab
+- Spreadsheet progetto ([Template](https://docs.google.com/spreadsheets/d/17EmTUVLzimppd70kckX2r2UxPQIwGDMU_Fzsqec4idg/edit?gid=1775469119#gid=1775469119))
+- [Metodo DataCivicLab](https://github.com/dataciviclab/dataciviclab/blob/main/METHOD.md)
