@@ -32,3 +32,6 @@ Un progetto è “Done” quando:
 - README aggiornato con: scopo, dataset, metodo, output, limiti
 - Link a dashboard + dataset + query/notebook principali
 - “Cosa emerge” e “cosa non emerge” scritto chiaramente
+
+
+> Nota: una sintesi è in `WORKFLOW.md`.

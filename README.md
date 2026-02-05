@@ -25,12 +25,15 @@
 ## Stato progetto
 🟢 Attivo | 🟡 In revisione | 🔴 Bloccato | ✅ Chiuso
 
-## Come contribuire
-- Leggi `METHOD.md`
-- Guarda le issue aperte
-- Proponi miglioramenti via Pull Request
+## Come si contribuisce
+
+1. **Discussion** per idee / contesto
+2. **Issue** per task concreti
+3. **Branch** per lavorare
+4. **Pull Request** per revisione e merge
+
+Dettagli in `WORKFLOW.md`.
 
 ## Link utili
-- Board progetto (GitHub Projects)
 - Spreadsheet progetto ([Template](https://docs.google.com/spreadsheets/d/17EmTUVLzimppd70kckX2r2UxPQIwGDMU_Fzsqec4idg/edit?gid=1775469119#gid=1775469119))
 - [Metodo DataCivicLab](https://github.com/dataciviclab/dataciviclab/blob/main/METHOD.md)
