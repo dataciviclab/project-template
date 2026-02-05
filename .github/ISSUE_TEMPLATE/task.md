@@ -4,13 +4,13 @@ about: Task operativa del progetto (lean)
 ---
 
 ## Cosa
-<!-- Una frase: cosa va fatto -->
+Una frase: cosa va fatto
 
 ## Perché
-<!-- Perché serve rispetto alla domanda civica -->
+Perché serve rispetto alla domanda civica
 
 ## Output atteso
-<!-- Es: tabella clean / dashboard / testo README / check QA -->
+Es: tabella clean / dashboard / testo README / check QA
 
 ## Checklist (seleziona ciò che serve)
 - [ ] Data
@@ -20,7 +20,7 @@ about: Task operativa del progetto (lean)
 - [ ] Doc
 
 ## Done quando
-<!-- Condizione chiara e verificabile -->
+Condizione chiara e verificabile
 
 ## Link utili
-<!-- dataset / query / dashboard / docs -->
+dataset / query / dashboard / docs

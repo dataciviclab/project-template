@@ -1,5 +1,5 @@
 ## Cosa cambia
-<!-- descrivi in 2-3 righe -->
+(descrivi in 2-3 righe)
 
 ## Tipo di contributo
 - [ ] Data (clean/mart/query)
