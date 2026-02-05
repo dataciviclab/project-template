@@ -1,13 +1,23 @@
-# 📥 Dati grezzi
+# 📥 /data/raw – Dati originali (documentazione)
 
-In questa cartella NON vengono caricati dataset pesanti se non necessario.
+⚠️ In questa cartella **non** si caricano dataset pesanti su GitHub.
 
 Qui trovi:
 - link alle fonti ufficiali
-- descrizione dei file
+- link alla cartella Drive (raw)
+- descrizione dei file (formato, anni, campi principali)
 - note su licenze e aggiornamenti
 
-Ogni dataset deve essere:
-- pubblico
-- citabile
-- verificabile
+---
+
+## 🔗 Link Drive (raw)
+_[incolla qui il link alla cartella Drive dei raw]_
+
+---
+
+## 📌 Checklist per ogni dataset
+- pubblico, citabile, verificabile
+- fonte ufficiale (URL)
+- frequenza aggiornamento (annuale/mensile/…)
+- note su anomalie note (missing, cambi schema, ecc.)
+
