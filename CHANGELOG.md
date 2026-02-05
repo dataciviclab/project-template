@@ -5,7 +5,7 @@ Questo changelog documenta le modifiche rilevanti al progetto.
 ---
 
 ## v0.1 — MVP iniziale
-📅 Data: ____
+📅 Data: 26/1/26
 
 ### Aggiunto
 - Prima versione dell’output pubblico
@@ -14,10 +14,12 @@ Questo changelog documenta le modifiche rilevanti al progetto.
 ---
 
 ## v0.2 — Miglioramenti
-📅 Data: ____
+📅 Data: 5/2/26
 
 ### Modificato
-- (descrizione)
+Miglioramenti documentazione e workflow di partenza di tutto il Repo
 
-### Corretto
-- (descrizione)
+## v0.3 — 
+📅 Data: 
+
+### Aggiunto

@@ -39,4 +39,3 @@ Ogni dashboard dovrebbe essere legata a uno o più dataset in `/data/mart`
 
 ---
 
-🧠 DataCivicLab – output leggibili, non solo belli.
