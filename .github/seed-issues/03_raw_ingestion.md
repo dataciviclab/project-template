@@ -1,6 +1,6 @@
 ---
 title: "M1-03 — RAW ingestion (download, snapshot, metadata)"
-labels: ["pipeline", "raw", "m1"]
+labels: ["DATA"]
 assignees: []
 ---
 ## 🎯 Obiettivo

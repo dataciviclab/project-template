@@ -1,6 +1,6 @@
 ---
 title: "M1-05 — CLEAN → MART (metriche, aggregazioni, modelli per dashboard)"
-labels: ["pipeline", "mart", "m1"]
+labels: ["DATA"]
 assignees: []
 ---
 ## 🎯 Obiettivo

@@ -1,6 +1,6 @@
 ---
 title: "M1-01 — Setup progetto (repo, ruoli, board, convenzioni)"
-labels: ["setup", "m1"]
+labels: ["LEAD"]
 assignees: []
 ---
 ## 🎯 Obiettivo

@@ -1,6 +1,6 @@
 ---
 title: "M1-06 — QA (controlli qualità, coerenza, regressioni)"
-labels: ["qa", "m1"]
+labels: ["QA"]
 assignees: []
 ---
 ## 🎯 Obiettivo

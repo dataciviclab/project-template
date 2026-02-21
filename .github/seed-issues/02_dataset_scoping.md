@@ -1,6 +1,6 @@
 ---
 title: "M1-02 — Scoping dataset (fonte, perimetro, limiti, chiavi)"
-labels: ["data", "metodo", "m1"]
+labels: ["METODO"]
 assignees: []
 ---
 ## 🎯 Obiettivo

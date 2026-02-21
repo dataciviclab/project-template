@@ -1,6 +1,6 @@
 ---
 title: "M1-08 — Documentazione & Release (README, riproducibilità, share)"
-labels: ["docs", "release", "m1"]
+labels: ["DOCS"]
 assignees: []
 ---
 ## 🎯 Obiettivo

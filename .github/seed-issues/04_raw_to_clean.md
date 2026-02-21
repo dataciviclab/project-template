@@ -1,6 +1,6 @@
 ---
 title: "M1-04 — RAW → CLEAN (standard colonne, parsing, validazioni base)"
-labels: ["pipeline", "clean", "m1"]
+labels: ["DATA"]
 assignees: []
 ---
 ## 🎯 Obiettivo

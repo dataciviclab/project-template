@@ -1,6 +1,6 @@
 ---
 title: "M1-07 — Visualizzazione (dashboard MVP + scelte di comunicazione)"
-labels: ["viz", "m1"]
+labels: ["VIZ"]
 assignees: []
 ---
 ## 🎯 Obiettivo
