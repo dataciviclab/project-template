@@ -23,14 +23,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install gh
-        uses: cli/cli@v2
-
-      - name: Auth gh
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh auth status
+      - name: Verify gh is available
+        run: gh --version
 
       - name: Create issues from seed files
         env:
@@ -67,11 +61,11 @@ jobs:
 
             TITLE="$(echo "$FM" | sed -n 's/^title:[[:space:]]*"\(.*\)"/\1/p')"
             if [ -z "${TITLE:-}" ]; then
-              TITLE="$(echo "$FM" | sed -n 's/^title:[[:space:]]*'\''\(.*\)'\''/\1/p')"
+              TITLE="$(echo "$FM" | sed -n "s/^title:[[:space:]]*'\(.*\)'/\1/p")"
             fi
 
-            LABELS_RAW="$(echo "$FM" | sed -n 's/^labels:[[:space:]]*\[\(.*\)\]/\1/p' | tr -d '"'\'' )"
-            ASSIGNEES_RAW="$(echo "$FM" | sed -n 's/^assignees:[[:space:]]*\[\(.*\)\]/\1/p' | tr -d '"'\'' )"
+            LABELS_RAW="$(echo "$FM" | sed -n 's/^labels:[[:space:]]*\[\(.*\)\]/\1/p' | tr -d "\"' ")"
+            ASSIGNEES_RAW="$(echo "$FM" | sed -n 's/^assignees:[[:space:]]*\[\(.*\)\]/\1/p' | tr -d "\"' ")"
 
             if [ -z "${TITLE:-}" ]; then
               echo "ERROR: Missing title in frontmatter of $f"
