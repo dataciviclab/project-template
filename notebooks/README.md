@@ -1,32 +1,18 @@
-# 📓 /notebooks – Pipeline e analisi
+# /notebooks - notebook standard per il dataset
 
-Questa cartella contiene notebook (Colab / Jupyter) per:
-- ingestione dati (raw)
-- pulizia/normalizzazione (clean)
-- aggregazioni e KPI (mart)
-- analisi esplorative (quando servono)
+Questa cartella contiene notebook leggeri e clonabili per avvio rapido, esplorazione dei mart e controlli di qualita.
+Usano solo Python standard, `duckdb`, path relativi e il file `../dataset.yml` come riferimento di progetto.
 
----
+## Notebook inclusi
 
-## ✅ Regole minime
+- `00_quickstart.ipynb` - esegue la pipeline e controlla che esistano tabelle mart leggibili
+- `01_explore_mart.ipynb` - esplorazione public-first dei dati finali
+- `02_quality_checks.ipynb` - controlli ripetibili su duplicati, missingness e range
+- `03_dashboard_export.ipynb` - export opzionali in `../_tmp/`, disattivati di default
 
-- notebook numerati: `01_...`, `02_...`, `03_...`
-- eseguibili dall’inizio alla fine (no “celle magiche”)
-- commenti brevi: **cosa** fai e **perché**
-- niente path locali: usare riferimenti chiari al Drive / cartelle di progetto
+## Regole
 
----
-
-## 🔁 Collegamento con `/data`
-
-Ogni notebook dovrebbe aggiornare (o citare) i README di:
-- `/data/raw`
-- `/data/clean`
-- `/data/mart`
-
-Così chi arriva dopo capisce:
-- da dove arrivano i dati
-- cosa è stato fatto
-- dove trovare i file su Drive
-
----
+- non salvare output pesanti nel repo
+- se serve esportare file, usa `../_tmp/`
+- mantieni i notebook generici: aggiorna nomi tabella e chiavi senza introdurre logica dataset-specifica
+- per dettagli tecnici della pipeline, vedi il repository Toolkit DataCivicLab

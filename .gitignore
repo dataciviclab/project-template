@@ -1,21 +1,24 @@
 # =========================
-# 🔒 DATI (NON VERSIONARE)
+# DATI (NON VERSIONARE)
 # =========================
-data/raw/**
-data/clean/**
-data/mart/**
+data/**
+!data/**/
 !data/**/README.md
+!data/_examples/
+!data/_examples/**
 
-# eventuali export temporanei
-*.csv
-*.tsv
-*.xlsx
-*.xls
-*.parquet
-*.json
+# output di run e artifact locali
+_runs/
+_runs/**
+!_runs/.gitkeep
+
+# eventuali export temporanei generati dal toolkit
+_runs/**/*.csv
+_runs/**/*.tsv
+_runs/**/*.parquet
 
 # =========================
-# 🧠 NOTEBOOK / PYTHON
+# NOTEBOOK / PYTHON
 # =========================
 __pycache__/
 *.py[cod]
@@ -26,17 +29,19 @@ venv/
 .envrc
 
 # =========================
-# 🧪 TOOL / TEMP
+# TOOL / TEMP
 # =========================
 .tmp/
 .tmp/**
+_tmp/
+_tmp/**
 .cache/
 .cache/**
 logs/
 *.log
 
 # =========================
-# 💻 IDE / EDITOR
+# IDE / EDITOR
 # =========================
 .vscode/*
 !.vscode/settings.json
@@ -46,14 +51,14 @@ logs/
 *.code-workspace
 
 # =========================
-# 🖥️ OS
+# OS
 # =========================
 .DS_Store
 Thumbs.db
 desktop.ini
 
 # =========================
-# 🔑 CREDENTIALS (MAI!)
+# CREDENTIALS (MAI)
 # =========================
 credentials.json
 service_account.json
@@ -61,13 +66,13 @@ service_account.json
 *.pem
 
 # =========================
-# 📦 ARCHIVI
+# ARCHIVI
 # =========================
 *.zip
 *.tar
 *.gz
 
 # =========================
-# 🔍 ALTRO
+# ALTRO
 # =========================
 nohup.out

@@ -1,0 +1,70 @@
+# Toolkit-first dataset contract aligned with the current smoke suite.
+# Path policy:
+# - use POSIX separators
+# - keep every path root-relative
+# - no absolute paths
+# Root resolution:
+# 1. dataset.yml root
+# 2. DCL_ROOT
+# 3. base_dir
+
+root: "./_runs"
+
+dataset:
+  name: "project_template"
+  years: [2024]
+
+validation:
+  fail_on_error: true
+
+raw:
+  source:
+    type: "http_file"
+    args:
+      url: "https://example.org/datasets/project_template_2024.csv"
+      filename: "project_template_{year}.csv"
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns:
+    - year
+    - entity_id
+    - metric_value
+  read:
+    source: config_only
+    mode: latest
+    delim: ","
+    header: true
+    encoding: "utf-8"
+    trim_whitespace: true
+    columns: null
+  validate:
+    primary_key:
+      - entity_id
+      - year
+    not_null:
+      - year
+      - entity_id
+    min_rows: 1
+
+mart:
+  required_tables:
+    - project_summary
+  tables:
+    - name: "project_summary"
+      sql: "sql/mart/project_summary.sql"
+  validate:
+    table_rules:
+      project_summary:
+        required_columns:
+          - year
+          - rows_in_year
+          - total_metric_value
+        not_null:
+          - year
+        primary_key:
+          - year
+        min_rows: 1
+
+output:
+  artifacts: minimal
