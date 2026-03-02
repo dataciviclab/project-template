@@ -11,6 +11,10 @@ data/**
 _runs/
 _runs/**
 !_runs/.gitkeep
+_smoke_out/
+_smoke_out/**
+_test_out/
+_test_out/**
 
 # eventuali export temporanei generati dal toolkit
 _runs/**/*.csv

@@ -19,7 +19,7 @@ Produrre uno o piu mart orientati a KPI e output finali, con tabella/e e validat
 ## Checklist
 
 - [ ] Creare o aggiornare `sql/mart/<table>.sql` per ogni tabella dichiarata
-- [ ] Allineare `mart.tables`, `mart.required_tables` e `mart.validate` in `dataset.yml`
+- [ ] Allineare `mart.tables` in `dataset.yml` e aggiungere eventuali regole di validazione supportate dal toolkit
 - [ ] Eseguire `toolkit run mart --config dataset.yml --year <year>`
 - [ ] Eseguire `toolkit validate --config dataset.yml --year <year>`
 - [ ] Verificare required columns, chiavi, `not_null`, `min_rows` e KPI sanity
@@ -29,9 +29,14 @@ Produrre uno o piu mart orientati a KPI e output finali, con tabella/e e validat
 
 Mart pronti per dashboard o report, con SQL separata per tabella e regole di validazione chiare.
 
+## Supporto operativo
+
+- notebook consigliato: `notebooks/03_explore_mart.ipynb`
+- comando minimo: `toolkit run mart --config dataset.yml`
+
 ## File da toccare
 
-- `sql/mart/project_summary.sql`
+- `sql/mart/<table>.sql`
 - `dataset.yml`
 - `docs/data_dictionary.md`
 - `docs/decisions.md`
@@ -39,6 +44,6 @@ Mart pronti per dashboard o report, con SQL separata per tabella e regole di val
 ## Acceptance criteria
 
 - ogni tabella dichiarata in `mart.tables[]` ha un file SQL dedicato
-- `mart.required_tables` e `mart.validate.table_rules` sono coerenti con le tabelle pubblicate
+- eventuali regole MART dichiarate in `dataset.yml` sono coerenti con le tabelle pubblicate
 - rowcount sanity e duplicate check sono stati eseguiti
 - il progetto puo passare a QA con mart leggibili e validabili

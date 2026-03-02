@@ -29,6 +29,11 @@ Avviare il progetto dataset con perimetro chiaro, domanda civica misurabile e co
 
 Progetto inizializzato con contratto di base valido e documentazione minima pronta per il source onboarding.
 
+## Supporto operativo
+
+- notebook consigliato: `notebooks/00_quickstart.ipynb`
+- comando minimo: `py -m pytest tests/test_contract.py`
+
 ## File da toccare
 
 - `dataset.yml`

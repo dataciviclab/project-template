@@ -21,14 +21,19 @@ Portare il dataset da RAW a CLEAN con SQL esplicita, schema documentato e valida
 - [ ] Implementare o aggiornare `sql/clean.sql`
 - [ ] Allineare `clean.read`, `clean.required_columns` e `clean.validate` in `dataset.yml`
 - [ ] Verificare chiavi logiche, `not_null`, `min_rows` e duplicati
-- [ ] Eseguire `toolkit run clean --config dataset.yml --year <year>`
-- [ ] Eseguire `toolkit validate --config dataset.yml --year <year>`
+- [ ] Eseguire `toolkit run clean --config dataset.yml`
+- [ ] Eseguire `toolkit validate clean --config dataset.yml`
 - [ ] Aggiornare `docs/data_dictionary.md` per il layer CLEAN
 - [ ] Loggare assunzioni e mapping in `docs/decisions.md`
 
 ## Output atteso
 
 Layer CLEAN riproducibile, con schema e regole di validazione sufficienti per alimentare i mart.
+
+## Supporto operativo
+
+- notebook consigliato: `notebooks/02_inspect_clean.ipynb`
+- path attesi: `root/data/clean/<dataset>/<year>/`
 
 ## File da toccare
 

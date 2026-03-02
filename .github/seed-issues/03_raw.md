@@ -17,9 +17,9 @@ Ottenere un layer RAW eseguibile e ripetibile, senza committare output in repo.
 
 ## Checklist
 
-- [ ] Verificare `raw.source` e eventuale extractor in `dataset.yml`
-- [ ] Eseguire `toolkit run raw --config dataset.yml --year <year>`
-- [ ] Eseguire `toolkit validate --config dataset.yml --year <year>` oppure documentare il blocco
+- [ ] Verificare `raw.sources[]`, `primary` ed eventuale extractor in `dataset.yml`
+- [ ] Eseguire `toolkit run raw --config dataset.yml`
+- [ ] Controllare `manifest.json`, `metadata.json` e `raw_validation.json`
 - [ ] Controllare metadata, manifest e validation report del RAW
 - [ ] Confermare che `data/` non contenga output committati
 - [ ] Aggiornare `docs/decisions.md` con eventuali eccezioni o failure modes
@@ -27,6 +27,11 @@ Ottenere un layer RAW eseguibile e ripetibile, senza committare output in repo.
 ## Output atteso
 
 RAW eseguibile con report minimi di validazione e metadata disponibili negli artifact di run.
+
+## Supporto operativo
+
+- notebook consigliato: `notebooks/01_inspect_raw.ipynb`
+- path attesi: `root/data/raw/<dataset>/<year>/`
 
 ## File da toccare
 
@@ -38,5 +43,5 @@ RAW eseguibile con report minimi di validazione e metadata disponibili negli art
 
 - il run RAW completa o il blocco e documentato in modo riproducibile
 - nessun output RAW viene aggiunto sotto `data/`
-- gli artifact minimi del RAW sono attesi sotto `_runs/`
+- gli artifact minimi del RAW sono attesi sotto `root/data/raw/<dataset>/<year>/`
 - il progetto puo passare a CLEAN con input RAW deterministico

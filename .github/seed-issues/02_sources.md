@@ -19,7 +19,7 @@ Qualificare la fonte e codificare in modo riproducibile come il toolkit deve leg
 ## Checklist
 
 - [ ] Identificare fonte primaria, URL canonico e frequenza di aggiornamento
-- [ ] Aggiornare `raw.source.type` e `raw.source.args` in `dataset.yml`
+- [ ] Aggiornare `raw.sources[].type` e `raw.sources[].args` in `dataset.yml`
 - [ ] Documentare licenza, coverage, refresh cadence e note in `docs/sources.md`
 - [ ] Registrare trade-off e assunzioni di ingestione in `docs/decisions.md`
 - [ ] Verificare che non esistano path assoluti o riferimenti locali
@@ -28,6 +28,11 @@ Qualificare la fonte e codificare in modo riproducibile come il toolkit deve leg
 ## Output atteso
 
 Fonte verificata e configurata in `dataset.yml`, con documentazione sufficiente per procedere al layer RAW.
+
+## Supporto operativo
+
+- notebook consigliato: `notebooks/01_inspect_raw.ipynb`
+- comando minimo: `toolkit run raw --config dataset.yml`
 
 ## File da toccare
 
@@ -38,6 +43,6 @@ Fonte verificata e configurata in `dataset.yml`, con documentazione sufficiente 
 ## Acceptance criteria
 
 - la fonte e verificabile e documentata
-- `raw.source` e compilato con campi sufficienti all'esecuzione
+- `raw.sources` e compilato con campi sufficienti all'esecuzione
 - `docs/sources.md` contiene note su licenza, refresh e limiti noti
 - `pytest tests/test_contract.py` passa

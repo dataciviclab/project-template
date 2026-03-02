@@ -13,13 +13,16 @@ BLOCKED_DATA_EXTENSIONS = {".parquet", ".csv", ".jsonl", ".zip", ".xlsx", ".tsv"
 REQUIRED_FILES = [
     REPO_ROOT / "dataset.yml",
     REPO_ROOT / "sql" / "clean.sql",
-    REPO_ROOT / "sql" / "mart" / "project_summary.sql",
     REPO_ROOT / "docs" / "sources.md",
     REPO_ROOT / "docs" / "decisions.md",
     REPO_ROOT / "docs" / "data_dictionary.md",
     REPO_ROOT / "scripts" / "smoke.sh",
     REPO_ROOT / ".github" / "workflows" / "ci.yml",
 ]
+
+
+def _load_dataset() -> dict:
+    return yaml.safe_load(DATASET_FILE.read_text(encoding="utf-8"))
 
 
 def _iter_path_values(node: object):
@@ -38,38 +41,52 @@ def test_required_files_exist() -> None:
     assert not missing, f"Missing required template files: {missing}"
 
 
-def test_dataset_uses_supported_contract_keys() -> None:
-    dataset = yaml.safe_load(DATASET_FILE.read_text(encoding="utf-8"))
-    clean_read = dataset["clean"]["read"]
+def test_dataset_declares_minimum_contract() -> None:
+    dataset = _load_dataset()
 
+    assert dataset.get("schema_version") == 1
+    assert "root" in dataset
     assert "dataset" in dataset
     assert "name" in dataset["dataset"]
     assert "years" in dataset["dataset"]
-    assert dataset["validation"]["fail_on_error"] is True
-    assert "source" in clean_read
-    assert "header" in clean_read
-    assert "columns" in clean_read
-    assert "csv" not in clean_read
+    assert isinstance(dataset["dataset"]["years"], list)
+    assert dataset["dataset"]["years"]
+    assert "raw" in dataset
+    assert "sources" in dataset["raw"]
+    assert isinstance(dataset["raw"]["sources"], list)
+    assert dataset["raw"]["sources"]
+    assert dataset["raw"]["sources"][0]["primary"] is True
+    assert "clean" in dataset
+    assert dataset["clean"]["sql"]
+    assert dataset["clean"]["read_mode"] in {"strict", "fallback", "robust"}
+    assert "read" in dataset["clean"]
+    assert isinstance(dataset["clean"]["read"], dict)
+    assert dataset["clean"]["read"]["source"] in {"auto", "config_only"}
+    assert dataset["clean"]["read"]["mode"] in {"explicit", "latest", "largest", "all"}
+    assert "header" in dataset["clean"]["read"]
+    assert "columns" in dataset["clean"]["read"]
     assert dataset["clean"]["required_columns"]
     assert dataset["clean"]["validate"]["primary_key"]
     assert dataset["clean"]["validate"]["not_null"]
+    assert dataset["clean"]["validate"]["min_rows"] == 1
     assert "mart" in dataset
     assert "tables" in dataset["mart"]
     assert isinstance(dataset["mart"]["tables"], list)
     assert dataset["mart"]["tables"]
     assert dataset["mart"]["required_tables"]
-    assert dataset["mart"]["validate"]["table_rules"]["project_summary"]["required_columns"]
+    assert "table_rules" in dataset["mart"]["validate"]
+    assert dataset["validation"]["fail_on_error"] is True
+    assert dataset["output"]["artifacts"] in {"minimal", "standard", "debug"}
 
 
-def test_dataset_matches_smoke_contract_shape() -> None:
-    dataset = yaml.safe_load(DATASET_FILE.read_text(encoding="utf-8"))
+def test_dataset_avoids_legacy_clean_read_shape() -> None:
+    dataset = _load_dataset()
 
-    assert dataset["output"]["artifacts"] == "minimal"
     assert "csv" not in dataset["clean"]["read"]
 
 
 def test_dataset_paths_are_relative_and_posix() -> None:
-    dataset = yaml.safe_load(DATASET_FILE.read_text(encoding="utf-8"))
+    dataset = _load_dataset()
 
     for key, value in _iter_path_values(dataset):
         if value.startswith("http://") or value.startswith("https://"):
@@ -81,21 +98,35 @@ def test_dataset_paths_are_relative_and_posix() -> None:
         assert not re.match(r"^[A-Za-z]:[\\/]", value), f"Absolute Windows path found for key '{key}': {value}"
 
 
-def test_yaml_sql_paths_match_template_files() -> None:
-    dataset = yaml.safe_load(DATASET_FILE.read_text(encoding="utf-8"))
+def test_declared_sql_files_exist() -> None:
+    dataset = _load_dataset()
 
-    assert dataset["clean"]["sql"] == "sql/clean.sql"
+    clean_sql = REPO_ROOT / dataset["clean"]["sql"]
+    assert clean_sql.exists(), f"Missing clean SQL file declared in dataset.yml: {dataset['clean']['sql']}"
 
     mart_tables = dataset["mart"]["tables"]
-    project_summary = next((table for table in mart_tables if table["name"] == "project_summary"), None)
-    assert project_summary is not None, "Missing mart table 'project_summary'"
-    assert project_summary["sql"] == "sql/mart/project_summary.sql"
+    for table in mart_tables:
+        assert "name" in table and table["name"], "Each mart table must declare a non-empty name"
+        assert "sql" in table and table["sql"], f"Mart table '{table['name']}' must declare an SQL path"
+        sql_path = REPO_ROOT / table["sql"]
+        assert sql_path.exists(), f"Missing mart SQL file declared in dataset.yml: {table['sql']}"
 
 
-def test_output_artifacts_is_configured() -> None:
-    dataset = yaml.safe_load(DATASET_FILE.read_text(encoding="utf-8"))
+def test_mart_table_names_are_unique() -> None:
+    dataset = _load_dataset()
+    names = [table["name"] for table in dataset["mart"]["tables"]]
+    assert len(names) == len(set(names)), f"Duplicate mart table names found: {names}"
 
-    assert dataset["output"]["artifacts"] == "minimal"
+
+def test_required_tables_and_rules_match_declared_marts() -> None:
+    dataset = _load_dataset()
+
+    names = {table["name"] for table in dataset["mart"]["tables"]}
+    required_tables = set(dataset["mart"]["required_tables"])
+    table_rules = set(dataset["mart"]["validate"]["table_rules"].keys())
+
+    assert required_tables <= names, "mart.required_tables must reference declared mart.tables"
+    assert table_rules <= names, "mart.validate.table_rules must reference declared mart.tables"
 
 
 def test_data_directory_does_not_contain_committed_outputs() -> None:

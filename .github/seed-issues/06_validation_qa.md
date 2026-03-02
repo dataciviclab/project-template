@@ -18,16 +18,21 @@ Chiudere il gate tecnico di qualita con contract tests verdi, validazioni datase
 
 ## Checklist
 
-- [ ] Eseguire `pytest tests/test_contract.py`
+- [ ] Eseguire `py -m pytest tests/test_contract.py`
 - [ ] Verificare che la CI `contract` sia verde
 - [ ] Verificare che la CI `smoke` sia documentata e attivabile con `RUN_SMOKE=1`
-- [ ] Rieseguire `toolkit validate --config dataset.yml --year <year>` se disponibile
+- [ ] Rieseguire `toolkit validate all --config dataset.yml`
 - [ ] Controllare outlier, rowcount sanity, duplicates e coerenza dei KPI
 - [ ] Aprire issue residue per anomalie non bloccanti
 
 ## Output atteso
 
 Gate QA superato, con standard minimo del Lab rispettato e stato di qualita esplicito.
+
+## Supporto operativo
+
+- notebook consigliato: `notebooks/04_quality_checks.ipynb`
+- comando di stato: `toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml`
 
 ## File da toccare
 

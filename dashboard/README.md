@@ -14,3 +14,4 @@ Qui vanno link, note di lettura, screenshot e limiti dell'output, non i dati.
 ## Coerenza con i mart
 
 Ogni dashboard dovrebbe essere collegata ai mart documentati e aggiornati del progetto.
+Se il progetto usa un archivio pubblico su Drive, documenta qui quali file pubblicati alimentano la dashboard.

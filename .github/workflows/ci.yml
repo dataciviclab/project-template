@@ -39,7 +39,6 @@ jobs:
         run: |
           test -f dataset.yml
           test -f sql/clean.sql
-          test -f sql/mart/project_summary.sql
           test -f scripts/smoke.sh
 
       - name: Run contract tests
@@ -75,7 +74,7 @@ jobs:
       - name: Export DCL_ROOT
         run: echo "DCL_ROOT=${GITHUB_WORKSPACE}" >> "${GITHUB_ENV}"
 
-      - name: Smoke run raw clean mart validate
+      - name: Smoke run all validate all status
         run: sh scripts/smoke.sh
 
       - name: Upload minimal artifacts
@@ -84,6 +83,8 @@ jobs:
         with:
           name: toolkit-artifacts
           path: |
-            _runs/**/*.json
-            _runs/**/logs/**
+            _smoke_out/data/_runs/**/*.json
+            _smoke_out/data/raw/**/*.json
+            _smoke_out/data/clean/**/*.json
+            _smoke_out/data/mart/**/*.json
           if-no-files-found: warn

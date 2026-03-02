@@ -27,6 +27,11 @@ Definire le domande civiche che guideranno fonti, metriche, unità di analisi e 
 
 Una base pubblica e metodologica chiara da cui far discendere le scelte su fonti, CLEAN, MART e output finali.
 
+## Supporto operativo
+
+- notebook consigliato: nessuno, il lavoro e principalmente metodologico e documentale
+- file guida: `README.md`, `docs/overview.md`, `docs/decisions.md`
+
 ## File da toccare
 
 - `README.md`

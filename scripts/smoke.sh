@@ -24,12 +24,8 @@ detect_toolkit_module() {
   if [ -z "${PYTHON_BIN:-}" ]; then
     return 1
   fi
-  if "${PYTHON_BIN}" -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_spec('toolkit') else 1)" >/dev/null 2>&1; then
-    echo toolkit
-    return 0
-  fi
-  if "${PYTHON_BIN}" -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_spec('dataciviclab_toolkit') else 1)" >/dev/null 2>&1; then
-    echo dataciviclab_toolkit
+  if "${PYTHON_BIN}" -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_spec('toolkit.cli.app') else 1)" >/dev/null 2>&1; then
+    echo toolkit.cli.app
     return 0
   fi
   return 1
@@ -54,6 +50,21 @@ detect_year() {
   echo 2023
 }
 
+detect_dataset() {
+  if [ -n "${DATASET_NAME:-}" ]; then
+    echo "${DATASET_NAME}"
+    return 0
+  fi
+  if [ -f "${DATASET_FILE}" ]; then
+    parsed_dataset="$(sed -n 's/^[[:space:]]*name:[[:space:]]*"\{0,1\}\([^"]*\)"\{0,1\}[[:space:]]*$/\1/p' "${DATASET_FILE}" | head -n 1)"
+    if [ -n "${parsed_dataset}" ]; then
+      echo "${parsed_dataset}"
+      return 0
+    fi
+  fi
+  echo "dataset_unknown"
+}
+
 run_toolkit() {
   if [ -n "${TOOLKIT_COMMAND:-}" ]; then
     "${TOOLKIT_COMMAND}" "$@"
@@ -63,7 +74,7 @@ run_toolkit() {
     "${PYTHON_BIN}" -m "${TOOLKIT_MODULE}" "$@"
     return 0
   fi
-  echo "Toolkit non disponibile: imposta TOOLKIT_BIN oppure installa un modulo Python 'toolkit' o 'dataciviclab_toolkit'." >&2
+  echo "Toolkit non disponibile: imposta TOOLKIT_BIN oppure installa il modulo Python del toolkit." >&2
   exit 2
 }
 
@@ -78,20 +89,21 @@ else
 fi
 
 if [ -z "${TOOLKIT_COMMAND}" ] && [ -z "${TOOLKIT_MODULE}" ]; then
-  echo "Toolkit non trovato. Provati: comando '${TOOLKIT_BIN}', modulo 'toolkit', modulo 'dataciviclab_toolkit'." >&2
+  echo "Toolkit non trovato. Provati: comando '${TOOLKIT_BIN}', modulo 'toolkit.cli.app'." >&2
   exit 2
 fi
 
 YEAR="$(detect_year "${1:-}")"
+DATASET_NAME="$(detect_dataset)"
 
 echo "DCL_ROOT=${DCL_ROOT}"
 echo "DATASET_FILE=${DATASET_FILE}"
 echo "TOOLKIT_BIN=${TOOLKIT_BIN}"
 echo "TOOLKIT_COMMAND=${TOOLKIT_COMMAND:-<none>}"
 echo "TOOLKIT_MODULE=${TOOLKIT_MODULE:-<none>}"
+echo "DATASET_NAME=${DATASET_NAME}"
 echo "YEAR=${YEAR}"
 
-run_toolkit run raw --config "${DATASET_FILE}" --year "${YEAR}"
-run_toolkit run clean --config "${DATASET_FILE}" --year "${YEAR}"
-run_toolkit run mart --config "${DATASET_FILE}" --year "${YEAR}"
-run_toolkit validate --config "${DATASET_FILE}" --year "${YEAR}"
+run_toolkit run all --config "${DATASET_FILE}"
+run_toolkit validate all --config "${DATASET_FILE}"
+run_toolkit status --dataset "${DATASET_NAME}" --year "${YEAR}" --latest --config "${DATASET_FILE}"

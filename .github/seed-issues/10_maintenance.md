@@ -29,11 +29,16 @@ Definire il lavoro necessario per mantenere il dataset nel tempo quando cambiano
 
 Piano di manutenzione chiaro e procedimento ripetibile per evolvere il dataset senza rompere il contratto del template.
 
+## Supporto operativo
+
+- notebook consigliato: `notebooks/01_inspect_raw.ipynb`, `notebooks/02_inspect_clean.ipynb`, `notebooks/03_explore_mart.ipynb`
+- comandi minimi: `py -m pytest tests/test_contract.py`, `toolkit run all --config dataset.yml`, `toolkit validate all --config dataset.yml`
+
 ## File da toccare
 
 - `dataset.yml`
 - `sql/clean.sql`
-- `sql/mart/project_summary.sql`
+- `sql/mart/<table>.sql`
 - `docs/sources.md`
 - `docs/data_dictionary.md`
 - `docs/decisions.md`

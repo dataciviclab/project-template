@@ -1,70 +1,70 @@
-# Toolkit-first dataset contract aligned with the current smoke suite.
-# Path policy:
-# - use POSIX separators
-# - keep every path root-relative
-# - no absolute paths
-# Root resolution:
-# 1. dataset.yml root
-# 2. DCL_ROOT
-# 3. base_dir
-
-root: "./_runs"
+schema_version: 1
+root: "./_smoke_out"
 
 dataset:
-  name: "project_template"
-  years: [2024]
+  name: "bdap_http_csv"
+  years: [2022]
+
+raw:
+  output_policy: "versioned"
+  sources:
+    - name: "bdap_csv"
+      type: "http_file"
+      args:
+        url: "https://bdap-opendata.rgs.mef.gov.it/export/csv/Rendiconto-Pubblicato---Serie-storica---Saldi.csv"
+        filename: "bdap_rendiconto_saldi_{year}.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read_mode: "fallback"
+  read:
+    source: "config_only"
+    mode: "explicit"
+    include:
+      - "bdap_rendiconto_saldi_*.csv"
+    delim: ";"
+    decimal: "."
+    encoding: "utf-8"
+    header: true
+    columns: null
+  required_columns:
+    - "anno"
+    - "saldo_netto"
+    - "indebitamento_netto"
+    - "avanzo_primario"
+    - "entrate_finali"
+    - "spese_finali"
+  validate:
+    primary_key:
+      - "anno"
+    not_null:
+      - "anno"
+    min_rows: 1
+
+mart:
+  tables:
+    - name: "mart_ok"
+      sql: "sql/mart/mart_ok.sql"
+  required_tables:
+    - "mart_ok"
+  validate:
+    table_rules:
+      mart_ok:
+        required_columns:
+          - "anno"
+          - "saldo_netto"
+          - "entrate_finali"
+          - "spese_finali"
+        primary_key:
+          - "anno"
+        not_null:
+          - "anno"
+        min_rows: 1
 
 validation:
   fail_on_error: true
 
-raw:
-  source:
-    type: "http_file"
-    args:
-      url: "https://example.org/datasets/project_template_2024.csv"
-      filename: "project_template_{year}.csv"
-
-clean:
-  sql: "sql/clean.sql"
-  required_columns:
-    - year
-    - entity_id
-    - metric_value
-  read:
-    source: config_only
-    mode: latest
-    delim: ","
-    header: true
-    encoding: "utf-8"
-    trim_whitespace: true
-    columns: null
-  validate:
-    primary_key:
-      - entity_id
-      - year
-    not_null:
-      - year
-      - entity_id
-    min_rows: 1
-
-mart:
-  required_tables:
-    - project_summary
-  tables:
-    - name: "project_summary"
-      sql: "sql/mart/project_summary.sql"
-  validate:
-    table_rules:
-      project_summary:
-        required_columns:
-          - year
-          - rows_in_year
-          - total_metric_value
-        not_null:
-          - year
-        primary_key:
-          - year
-        min_rows: 1
-
 output:
-  artifacts: minimal
+  artifacts: "minimal"
+  legacy_aliases: true

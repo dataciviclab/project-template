@@ -73,6 +73,24 @@ spiega il contesto, il territorio o l’anno che ti interessa e cosa vuoi capire
 * `docs/contributing.md` — come contribuire
 
 
+## Confine con il toolkit
+
+Questo repository contiene il contratto del dataset:
+
+* configurazione in `dataset.yml`
+* trasformazioni SQL in `sql/`
+* test di contratto e documentazione locale
+* notebook leggeri per ispezione degli output
+
+Il motore della pipeline vive nel repository **Toolkit DataCivicLab**.
+Questa repo non replica la logica di esecuzione del toolkit: definisce input, regole e output attesi per questo dataset.
+
+In pratica:
+
+* bug o feature della CLI, runner, validazioni runtime e metadata di run → repo `toolkit`
+* bug o modifiche a fonti, mapping, SQL, mart, docs e notebook di dataset → questa repo
+
+
 ## 🧭 Roadmap
 
 La roadmap è gestita con **issue + milestone**.
@@ -81,6 +99,9 @@ La roadmap è gestita con **issue + milestone**.
 ## 🔁 Clonabilità
 
 Questo repository è un modello per progetti dataset DataCivicLab.
+
+`dataset.yml` in root è un esempio eseguibile completo, utile per smoke e onboarding.
+Chi clona questo template deve adattarlo al dataset reale, non copiarlo come contratto finale immutabile.
 
 Per adattarlo a un nuovo dataset:
 
@@ -96,11 +117,45 @@ La struttura resta invariata.
 
 ```bash
 pip install dataciviclab-toolkit
-toolkit run --dataset dataset.yml
+toolkit run all --config dataset.yml
+toolkit validate all --config dataset.yml
 ```
 
-Per dettagli tecnici (CLI, configurazione, validazioni, run metadata)
+Se lavori con un checkout locale del toolkit, installalo in editable e poi esegui i comandi da questa repo.
+
+Per dettagli tecnici su CLI, configurazione supportata, validazioni runtime e run metadata,
 vedi il repository **Toolkit DataCivicLab**.
+
+
+## Archivio Pubblico
+
+Se il progetto pubblica artifact in un archivio pubblico DataCivicLab su Drive, il flusso consigliato e:
+
+1. eseguire e validare la pipeline in locale
+2. verificare gli output sotto `root/data/...`
+3. pubblicare solo gli artifact pubblici con uno script separato
+
+Esempio:
+
+```bash
+py scripts/publish_to_drive.py --config dataset.yml --drive-root "G:\\DataCivicLab" --dry-run
+py scripts/publish_to_drive.py --config dataset.yml --drive-root "G:\\DataCivicLab" --year 2022
+```
+
+Per default lo script pubblica:
+
+* payload RAW
+* metadata, manifest e validation di `raw`, `clean`, `mart`
+* parquet CLEAN
+* parquet MART
+* ultimo run record
+
+La destinazione su Drive mantiene lo stesso path relativo degli output del toolkit sotto `root`.
+
+Esempio:
+
+* locale: `root/data/mart/<dataset>/<year>/mart_ok.parquet`
+* Drive: `<drive-root>/data/mart/<dataset>/<year>/mart_ok.parquet`
 
 
 ## 🌍 DataCivicLab

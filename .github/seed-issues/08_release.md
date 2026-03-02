@@ -42,6 +42,11 @@ Portare il progetto a una release riproducibile, spiegabile e pronta per handoff
 
 Release interna o pubblica con documentazione finale coerente con i dati e con i mart prodotti.
 
+## Supporto operativo
+
+- notebook consigliato: `notebooks/00_quickstart.ipynb`
+- comandi minimi: `py -m pytest tests/test_contract.py` e `toolkit validate all --config dataset.yml`
+
 ## File da toccare
 
 - `README.md`

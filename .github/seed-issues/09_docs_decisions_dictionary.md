@@ -28,6 +28,10 @@ Tenere allineata la documentazione strutturata del dataset durante tutto il life
 
 Decision log e data dictionary completi, utili per review, handoff e manutenzione futura.
 
+## Supporto operativo
+
+- notebook consigliato: `notebooks/02_inspect_clean.ipynb` e `notebooks/03_explore_mart.ipynb`
+
 ## File da toccare
 
 - `docs/decisions.md`

@@ -28,6 +28,10 @@ Preparare un output pubblico che consumi i mart prodotti dal progetto.
 
 Dashboard, report o pagina pubblica leggibile e coerente con i mart del progetto.
 
+## Supporto operativo
+
+- notebook consigliato: `notebooks/05_dashboard_export.ipynb`
+
 ## File da toccare
 
 - `dashboard/README.md`
