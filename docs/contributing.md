@@ -1,6 +1,9 @@
 # Contributing
 
-Guida rapida per contribuire ai dati senza dover leggere tutta la documentazione tecnica del progetto.
+Guida rapida per contribuire a un repo dataset senza dover capire tutto l'ecosistema in un colpo solo.
+
+Le policy comuni dell'organizzazione non vengono duplicate qui: per quelle, il posto giusto e `.github`.
+Questo documento resta pratico e locale al repo dataset.
 
 ## Setup minimo
 
@@ -11,7 +14,7 @@ Prerequisiti:
 - lavorare sempre dalla root del progetto
 
 Questa repo contiene configurazione dataset, SQL, documentazione e test di contratto.
-Il motore della pipeline sta nel repo toolkit.
+Il motore della pipeline sta nel repo `toolkit`.
 
 ## Contract tests
 
@@ -32,17 +35,24 @@ Per uno smoke test end-to-end:
 sh scripts/smoke.sh
 ```
 
-Se il toolkit non è nel `PATH`, usa il fallback documentato nello script.
-Se lo smoke fallisce per un problema del motore, apri il bug nel repo toolkit.
+Se il toolkit non e nel `PATH`, usa il fallback documentato nello script.
+Se lo smoke fallisce per un problema del motore, apri il bug nel repo `toolkit`.
 Se fallisce per config, SQL o assunzioni sul dato, correggi questa repo.
 
-Su Windows, se `sh` non è disponibile nel `PATH`, usa una shell POSIX come Git Bash oppure esegui i comandi toolkit equivalenti:
+Su Windows, se `sh` non e disponibile nel `PATH`, usa una shell POSIX come Git Bash oppure esegui i comandi toolkit equivalenti:
 
 ```powershell
 toolkit run all --config dataset.yml
 toolkit validate all --config dataset.yml
 toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml
 ```
+
+## Dove scrivere cosa
+
+- Discussions della repo: domande, interpretazioni, proposte e contesto
+- Issues della repo: bug, task e blocchi operativi
+- Project board o milestone della repo, se presenti: avanzamento e priorita
+- Discord o altri canali veloci del team: utili per scambio rapido, non come fonte canonica
 
 ## Publish su Drive
 
@@ -126,4 +136,4 @@ I notebook usano `toolkit inspect paths --config dataset.yml --year <year> --jso
 
 - workflow umano: [../WORKFLOW.md](../WORKFLOW.md)
 - docs locali: [README.md](README.md)
-- standard Lab: [lab_links.md](lab_links.md)
+- contesto DataCivicLab, policy comuni e motore: [lab_links.md](lab_links.md)

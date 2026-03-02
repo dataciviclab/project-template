@@ -14,3 +14,8 @@ Usa questa pagina come ponte verso i repository organizzativi corretti.
 ## Motore tecnico
 
 - [toolkit](https://github.com/dataciviclab/toolkit): workflow tecnico canonico, CLI, contratti stabili e documentazione del motore
+
+## Canali pubblici
+
+- usa i canali della singola repo dataset per lasciare traccia utile del lavoro
+- se ti serve contesto org-wide, parti da `dataciviclab` e da `.github`

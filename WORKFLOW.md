@@ -4,8 +4,8 @@ Come contribuire in modo semplice a un progetto dataset DataCivicLab.
 
 ## Percorsi
 
-- feedback o idee: apri una Discussion o una Issue
-- avanzamento: usa gli issues e la Board
+- feedback o idee: usa le Discussions della repo se vuoi lasciare una traccia ragionata
+- avanzamento operativo: usa issue, project board o milestone della repo
 - insight o visual: parti da `sql/` o `dashboard/` se il progetto li prevede
 
 ## Dove andare
@@ -27,6 +27,8 @@ Come contribuire in modo semplice a un progetto dataset DataCivicLab.
 2. scegli una issue o aprine una nuova
 3. lavora su branch dedicato
 4. apri una PR piccola e leggibile
+
+GitHub resta il posto dove deve restare la traccia utile.
 
 ## Flusso tecnico minimo
 
