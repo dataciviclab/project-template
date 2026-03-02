@@ -1,10 +1,12 @@
 # /notebooks - notebook standard per il dataset
 
 Questa cartella contiene notebook leggeri e clonabili per tutto il lifecycle operativo del dataset.
-Usano solo Python standard, `duckdb`, path relativi e il file `../dataset.yml` come riferimento di progetto.
+Usano Python standard, `duckdb` e il contratto stabile `toolkit inspect paths --json` per scoprire gli output reali del progetto.
 
 I notebook non reimplementano il motore della pipeline.
-Assumono che il toolkit produca output leggibili e servono a ispezionare RAW, CLEAN o MART dal punto di vista del dataset.
+Usano `toolkit inspect paths --json` come fonte primaria per localizzare RAW, CLEAN, MART e run record, e servono a ispezionare gli output dal punto di vista del dataset.
+Il comando puo essere disponibile come `toolkit ...` oppure come fallback `py -m toolkit.cli.app ...`.
+Per i dettagli stabili lato toolkit, vedi `docs/notebook-contract.md` e `docs/feature-stability.md` nel repo toolkit.
 
 ## Notebook inclusi
 

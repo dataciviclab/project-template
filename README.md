@@ -126,6 +126,14 @@ Se lavori con un checkout locale del toolkit, installalo in editable e poi esegu
 Per dettagli tecnici su CLI, configurazione supportata, validazioni runtime e run metadata,
 vedi il repository **Toolkit DataCivicLab**.
 
+I notebook del template usano `toolkit inspect paths --config dataset.yml --year <year> --json` per localizzare gli output reali della pipeline.
+Il workflow principale del template resta centrato su `run all`, `validate all`, `status` e notebook locali; i flow avanzati del toolkit restano documentati nel repo toolkit.
+Per i contratti stabili del toolkit, vedi in particolare:
+
+* `docs/notebook-contract.md`
+* `docs/feature-stability.md`
+* `docs/advanced-workflows.md`
+
 
 ## Archivio Pubblico
 
@@ -134,6 +142,8 @@ Se il progetto pubblica artifact in un archivio pubblico DataCivicLab su Drive, 
 1. eseguire e validare la pipeline in locale
 2. verificare gli output sotto `root/data/...`
 3. pubblicare solo gli artifact pubblici con uno script separato
+
+Il publish su Drive e una operazione `maintainer-only`, da eseguire in fase di release o merge, non nel workflow base dei contributor.
 
 Esempio:
 

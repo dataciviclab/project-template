@@ -15,3 +15,4 @@ Qui vanno link, note di lettura, screenshot e limiti dell'output, non i dati.
 
 Ogni dashboard dovrebbe essere collegata ai mart documentati e aggiornati del progetto.
 Se il progetto usa un archivio pubblico su Drive, documenta qui quali file pubblicati alimentano la dashboard.
+La pubblicazione su Drive resta una operazione `maintainer-only`.

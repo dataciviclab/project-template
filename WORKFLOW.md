@@ -34,4 +34,9 @@ Come contribuire in modo semplice a un progetto dataset DataCivicLab.
 2. esegui `toolkit run all --config dataset.yml`
 3. esegui `toolkit validate all --config dataset.yml`
 4. usa i notebook per ispezionare RAW, CLEAN, MART e QA
-5. se il progetto ha un archivio pubblico, pubblica gli artifact con `py scripts/publish_to_drive.py`
+
+## Maintainers
+
+1. revisiona PR e stato del dataset
+2. verifica `status` e output finali
+3. se il progetto ha un archivio pubblico, pubblica gli artifact con `py scripts/publish_to_drive.py`
