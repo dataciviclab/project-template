@@ -83,7 +83,7 @@ toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml
 toolkit inspect paths --config dataset.yml --year <year> --json
 ```
 
-Per workflow avanzati come `run raw|clean|mart`, `resume`, `profile raw` o `gen-sql`, vedi la documentazione advanced del toolkit.
+Per workflow avanzati come `run raw|clean|mart`, `resume` o `profile raw`, vedi la documentazione advanced del toolkit.
 Per il contratto stabile dei notebook e la matrice di stabilita delle feature, vedi anche:
 
 - `docs/notebook-contract.md`
@@ -117,6 +117,12 @@ Quando lavori per layer invece che con `run all`, usa questa regola semplice:
 | Release | `README.md`, `docs/overview.md`, `docs/data_dictionary.md` | `toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml` | `00_quickstart.ipynb` |
 
 I notebook usano `toolkit inspect paths --config dataset.yml --year <year> --json` come contratto stabile per localizzare gli output.
+
+Ruoli minimi da tenere distinti nei notebook:
+
+- `metadata.json` = payload ricco del layer
+- `manifest.json` = summary stabile del layer con puntatori a metadata e validation
+- `data/_runs/.../<run_id>.json` = stato del run usato da `status` e `resume`
 
 ## Regole veloci
 

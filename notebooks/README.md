@@ -8,6 +8,12 @@ Usano `toolkit inspect paths --json` come fonte primaria per localizzare RAW, CL
 Il comando puo essere disponibile come `toolkit ...` oppure come fallback `py -m toolkit.cli.app ...`.
 Per i dettagli stabili lato toolkit, vedi `docs/notebook-contract.md` e `docs/feature-stability.md` nel repo toolkit.
 
+Contratto minimo degli output:
+
+- `metadata.json` = payload ricco del layer
+- `manifest.json` = summary stabile del layer con puntatori a metadata e validation
+- `data/_runs/.../<run_id>.json` = stato del run letto da `status` e `resume`
+
 ## Notebook inclusi
 
 - `00_quickstart.ipynb` - setup, command preview, run opzionale e localizzazione output reali del toolkit
@@ -22,4 +28,5 @@ Per i dettagli stabili lato toolkit, vedi `docs/notebook-contract.md` e `docs/fe
 - non salvare output pesanti nel repo
 - se serve esportare file, usa `../_tmp/`
 - mantieni i notebook generici: preferisci leggere `dataset.yml` e usa i parametri iniziali per scegliere anno/tabella
+- non ricostruire a mano i path degli output del toolkit: usa sempre i path restituiti da `inspect paths --json`
 - per dettagli tecnici della pipeline, vedi il repository Toolkit DataCivicLab
