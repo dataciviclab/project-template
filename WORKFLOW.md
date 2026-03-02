@@ -11,7 +11,7 @@ Come contribuire in modo semplice a un progetto dataset DataCivicLab.
 ## Dove andare
 
 - setup e contributo rapido: [docs/contributing.md](docs/contributing.md)
-- standard Lab, DoD e release policy: [docs/lab_links.md](docs/lab_links.md)
+- contesto DataCivicLab, policy comuni e motore tecnico: [docs/lab_links.md](docs/lab_links.md)
 - indice docs locali: [docs/README.md](docs/README.md)
 
 ## Confine tecnico

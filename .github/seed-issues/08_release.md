@@ -19,7 +19,7 @@ Portare il progetto a una release riproducibile, spiegabile e pronta per handoff
 ## Checklist
 
 - [ ] Aggiornare `README.md` con scopo, metodo, output e limiti
-- [ ] Verificare `docs/lab_links.md` per release policy, DoD e riferimenti Lab-wide
+- [ ] Verificare `docs/lab_links.md` per hub DataCivicLab, policy comuni e riferimenti al toolkit
 - [ ] Confermare che `output.artifacts` resti su `minimal` o motivare eccezioni
 - [ ] Collegare eventuale dashboard o report ai mart corretti
 - [ ] Verificare che documentazione e artifact minimi siano coerenti

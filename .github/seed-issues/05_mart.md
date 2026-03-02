@@ -22,6 +22,7 @@ Produrre uno o piu mart orientati a KPI e output finali, con tabella/e e validat
 - [ ] Allineare `mart.tables` in `dataset.yml` e aggiungere eventuali regole di validazione supportate dal toolkit
 - [ ] Eseguire `toolkit run mart --config dataset.yml --year <year>`
 - [ ] Eseguire `toolkit validate --config dataset.yml --year <year>`
+- [ ] Usare `toolkit inspect paths --config dataset.yml --year <year> --json` per localizzare i mart
 - [ ] Verificare required columns, chiavi, `not_null`, `min_rows` e KPI sanity
 - [ ] Aggiornare `docs/data_dictionary.md` con granularita, KPI e semantica dei mart
 
@@ -33,6 +34,7 @@ Mart pronti per dashboard o report, con SQL separata per tabella e regole di val
 
 - notebook consigliato: `notebooks/03_explore_mart.ipynb`
 - comando minimo: `toolkit run mart --config dataset.yml`
+- comando di discovery: `toolkit inspect paths --config dataset.yml --year <year> --json`
 
 ## File da toccare
 

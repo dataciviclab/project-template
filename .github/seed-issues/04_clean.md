@@ -23,6 +23,7 @@ Portare il dataset da RAW a CLEAN con SQL esplicita, schema documentato e valida
 - [ ] Verificare chiavi logiche, `not_null`, `min_rows` e duplicati
 - [ ] Eseguire `toolkit run clean --config dataset.yml`
 - [ ] Eseguire `toolkit validate clean --config dataset.yml`
+- [ ] Usare `toolkit inspect paths --config dataset.yml --year <year> --json` per localizzare il layer CLEAN
 - [ ] Aggiornare `docs/data_dictionary.md` per il layer CLEAN
 - [ ] Loggare assunzioni e mapping in `docs/decisions.md`
 
@@ -34,6 +35,7 @@ Layer CLEAN riproducibile, con schema e regole di validazione sufficienti per al
 
 - notebook consigliato: `notebooks/02_inspect_clean.ipynb`
 - path attesi: `root/data/clean/<dataset>/<year>/`
+- comando di discovery: `toolkit inspect paths --config dataset.yml --year <year> --json`
 
 ## File da toccare
 

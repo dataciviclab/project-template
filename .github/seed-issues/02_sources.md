@@ -33,6 +33,7 @@ Fonte verificata e configurata in `dataset.yml`, con documentazione sufficiente 
 
 - notebook consigliato: `notebooks/01_inspect_raw.ipynb`
 - comando minimo: `toolkit run raw --config dataset.yml`
+- dopo il run usa: `toolkit inspect paths --config dataset.yml --year <year> --json`
 
 ## File da toccare
 

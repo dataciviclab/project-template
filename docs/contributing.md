@@ -79,6 +79,12 @@ Per il contratto stabile dei notebook e la matrice di stabilita delle feature, v
 - `docs/notebook-contract.md`
 - `docs/feature-stability.md`
 
+Quando lavori per layer invece che con `run all`, usa questa regola semplice:
+
+- `toolkit run raw|clean|mart ...` produce gli artifact
+- `toolkit inspect paths --config dataset.yml --year <year> --json` ti dice dove leggerli
+- notebook e controlli manuali devono leggere i path restituiti, non ricostruirli a mano
+
 ## Fasi operative
 
 - kickoff e contratto: `dataset.yml`, `README.md`, `tests/test_contract.py`
@@ -93,9 +99,9 @@ Per il contratto stabile dei notebook e la matrice di stabilita delle feature, v
 | Fase | File principali | Comando minimo | Notebook |
 |---|---|---|---|
 | Kickoff | `dataset.yml`, `README.md` | `py -m pytest tests/test_contract.py` | `00_quickstart.ipynb` |
-| Sources/RAW | `dataset.yml`, `docs/sources.md`, `docs/decisions.md` | `toolkit inspect paths --config dataset.yml --year <year> --json` | `01_inspect_raw.ipynb` |
-| CLEAN | `sql/clean.sql`, `dataset.yml`, `docs/data_dictionary.md` | `toolkit inspect paths --config dataset.yml --year <year> --json` | `02_inspect_clean.ipynb` |
-| MART | `sql/mart/*.sql`, `dataset.yml` | `toolkit inspect paths --config dataset.yml --year <year> --json` | `03_explore_mart.ipynb` |
+| Sources/RAW | `dataset.yml`, `docs/sources.md`, `docs/decisions.md` | `toolkit run raw --config dataset.yml`, poi `toolkit inspect paths --config dataset.yml --year <year> --json` | `01_inspect_raw.ipynb` |
+| CLEAN | `sql/clean.sql`, `dataset.yml`, `docs/data_dictionary.md` | `toolkit run clean --config dataset.yml`, poi `toolkit inspect paths --config dataset.yml --year <year> --json` | `02_inspect_clean.ipynb` |
+| MART | `sql/mart/*.sql`, `dataset.yml` | `toolkit run mart --config dataset.yml`, poi `toolkit inspect paths --config dataset.yml --year <year> --json` | `03_explore_mart.ipynb` |
 | QA | `tests/test_contract.py`, `.github/workflows/ci.yml` | `toolkit validate all --config dataset.yml` | `04_quality_checks.ipynb` |
 | Output pubblico | `dashboard/`, `README.md`, `scripts/publish_to_drive.py` | `maintainer-only: py scripts/publish_to_drive.py --config dataset.yml --drive-root "<drive>" --dry-run` | `05_dashboard_export.ipynb` |
 | Release | `README.md`, `docs/overview.md`, `docs/data_dictionary.md` | `toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml` | `00_quickstart.ipynb` |

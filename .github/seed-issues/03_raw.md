@@ -19,6 +19,7 @@ Ottenere un layer RAW eseguibile e ripetibile, senza committare output in repo.
 
 - [ ] Verificare `raw.sources[]`, `primary` ed eventuale extractor in `dataset.yml`
 - [ ] Eseguire `toolkit run raw --config dataset.yml`
+- [ ] Usare `toolkit inspect paths --config dataset.yml --year <year> --json` per localizzare gli artifact RAW
 - [ ] Controllare `manifest.json`, `metadata.json` e `raw_validation.json`
 - [ ] Controllare metadata, manifest e validation report del RAW
 - [ ] Confermare che `data/` non contenga output committati
@@ -32,6 +33,7 @@ RAW eseguibile con report minimi di validazione e metadata disponibili negli art
 
 - notebook consigliato: `notebooks/01_inspect_raw.ipynb`
 - path attesi: `root/data/raw/<dataset>/<year>/`
+- comando di discovery: `toolkit inspect paths --config dataset.yml --year <year> --json`
 
 ## File da toccare
 

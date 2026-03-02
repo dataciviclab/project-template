@@ -1,15 +1,16 @@
 # Lab Links
 
 Gli standard del Lab sono centralizzati e non vengono duplicati in questo template.
-Usa questa pagina come ponte verso handbook e repository org-wide.
+Usa questa pagina come ponte verso i repository organizzativi corretti.
 
-## Handbook
+## Hub del Lab
 
-- [Handbook: Method](TODO: link repo dataciviclab/handbook)
-- [Handbook: Definition of Done](TODO: link repo dataciviclab/handbook)
-- [Handbook: Release policy](TODO: link repo dataciviclab/handbook)
-- [Handbook: Roles](TODO: link repo dataciviclab/handbook)
+- [dataciviclab](https://github.com/dataciviclab/dataciviclab): hub pubblico del Lab, mappa delle repo, catalogo dataset, governance alta e canali community
 
-## Org-wide
+## Policy organizzative
 
-- [dataciviclab/.github: Issue and PR templates](TODO: link repo dataciviclab/.github)
+- [.github](https://github.com/dataciviclab/.github): policy condivise, issue template, PR template e community health files
+
+## Motore tecnico
+
+- [toolkit](https://github.com/dataciviclab/toolkit): workflow tecnico canonico, CLI, contratti stabili e documentazione del motore

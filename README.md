@@ -134,6 +134,8 @@ Per i contratti stabili del toolkit, vedi in particolare:
 * `docs/feature-stability.md`
 * `docs/advanced-workflows.md`
 
+Per il contesto dell'ecosistema DataCivicLab, la mappa delle repo e le policy condivise, usa invece i riferimenti in `docs/lab_links.md`.
+
 
 ## Archivio Pubblico
 
@@ -172,3 +174,4 @@ Esempio:
 
 Parte del progetto DataCivicLab.
 Costruiamo infrastruttura open per analisi pubbliche riproducibili.
+Per capire come si colloca questa repo nell'organizzazione, parti da `docs/lab_links.md`.
