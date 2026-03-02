@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -9,6 +10,7 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATASET_FILE = REPO_ROOT / "dataset.yml"
 DATA_DIR = REPO_ROOT / "data"
+NOTEBOOKS_DIR = REPO_ROOT / "notebooks"
 BLOCKED_DATA_EXTENSIONS = {".parquet", ".csv", ".jsonl", ".zip", ".xlsx", ".tsv"}
 REQUIRED_FILES = [
     REPO_ROOT / "dataset.yml",
@@ -148,5 +150,34 @@ def test_data_directory_does_not_contain_committed_outputs() -> None:
 
     assert not offenders, (
         "Non committare output in data/: usa data/_examples per sample piccoli. "
+        f"Found: {offenders}"
+    )
+
+
+def test_notebooks_do_not_rebuild_runtime_output_paths() -> None:
+    forbidden_patterns = [
+        "OUT_ROOT =",
+        "/ 'data' / 'raw' /",
+        "/ 'data' / 'clean' /",
+        "/ 'data' / 'mart' /",
+        "/ 'data' / '_runs' /",
+        "Path(INSPECT['paths']['mart']['dir']) /",
+    ]
+
+    offenders: list[str] = []
+
+    for path in sorted(NOTEBOOKS_DIR.glob("*.ipynb")):
+        notebook = json.loads(path.read_text(encoding="utf-8"))
+        for cell in notebook.get("cells", []):
+            if cell.get("cell_type") != "code":
+                continue
+            source = "".join(cell.get("source", []))
+            for pattern in forbidden_patterns:
+                if pattern in source:
+                    offenders.append(f"{path.relative_to(REPO_ROOT)} -> {pattern}")
+
+    assert not offenders, (
+        "I notebook devono usare `toolkit inspect paths --json` come fonte di verita` "
+        "e non ricostruire a mano i path del runtime. "
         f"Found: {offenders}"
     )
