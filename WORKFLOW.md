@@ -35,7 +35,9 @@ GitHub resta il posto dove deve restare la traccia utile.
 1. valida la config con `py -m pytest tests/test_contract.py`
 2. esegui `toolkit run all --config dataset.yml`
 3. esegui `toolkit validate all --config dataset.yml`
-4. usa i notebook per ispezionare RAW, CLEAN, MART e QA
+4. esegui `toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml`
+5. usa `toolkit inspect paths --config dataset.yml --year <year> --json`
+6. usa i notebook per ispezionare RAW, CLEAN, MART e QA
 
 ## Maintainers
 

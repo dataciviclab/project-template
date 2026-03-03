@@ -118,6 +118,14 @@ I notebook del template usano anche:
 toolkit inspect paths --config dataset.yml --year <year> --json
 ```
 
+Nota di contratto:
+
+- i path relativi in `dataset.yml` sono risolti rispetto alla directory del file `dataset.yml`, non rispetto al `cwd`
+- i notebook non devono ricostruire a mano `root/data/raw|clean|mart|_runs`
+- `metadata.json` e il payload ricco del layer
+- `manifest.json` e il summary stabile del layer
+- `data/_runs/.../<run_id>.json` e il run record letto da `status`
+
 Per dettagli piu profondi su CLI, contratti stabili, workflow advanced e feature stability, il posto giusto e `toolkit`.
 
 ## 🧭 Dove andare per il resto
