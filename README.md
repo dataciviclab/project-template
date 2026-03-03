@@ -180,3 +180,21 @@ py scripts/publish_to_drive.py --config dataset.yml --drive-root "G:\\DataCivicL
 ```
 
 La destinazione su Drive mantiene lo stesso path relativo degli output del toolkit sotto `root`.
+
+## Ritmo operativo consigliato
+
+Quando un repo dataset entra in ritmo, conviene mantenere una sequenza semplice:
+
+1. una domanda civica principale sempre visibile nel README
+2. domande complementari che emergono e si chiariscono in Discussions
+3. issue piccole per trasformare le domande mature in lavoro concreto
+4. output condivisibili pubblicati con continuita
+
+L'output non deve essere sempre una dashboard completa.
+Puo essere anche:
+
+- una risposta breve con una tabella
+- un notebook che chiude una domanda precisa
+- un aggiornamento intermedio su limiti, dati mancanti o primi pattern
+
+Questo aiuta a mantenere il repository vivo senza trasformarlo in un backlog confuso.
