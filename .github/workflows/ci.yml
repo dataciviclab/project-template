@@ -62,13 +62,9 @@ jobs:
           python -m pip install pytest pyyaml
           if [ -n "${TOOLKIT_PIP_PACKAGE}" ]; then
             python -m pip install "${TOOLKIT_PIP_PACKAGE}"
-          elif [ -d "./toolkit" ]; then
-            python -m pip install -e "./toolkit"
-          elif [ -d "../toolkit" ]; then
-            python -m pip install -e "../toolkit"
           else
-            echo "Unable to install toolkit: set TOOLKIT_PIP_PACKAGE or provide ./toolkit or ../toolkit" >&2
-            exit 1
+            git clone --depth 1 https://github.com/dataciviclab/toolkit.git .toolkit-src
+            python -m pip install -e ./.toolkit-src
           fi
 
       - name: Export DCL_ROOT
