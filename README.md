@@ -20,6 +20,15 @@ Esempi:
 - Dove si osservano miglioramenti o peggioramenti?
 - Il mio territorio e sopra o sotto la media?
 
+Questa repo dovrebbe avere **una domanda civica principale**.
+
+Dallo stesso dataset possono nascere anche altre domande utili, ma vanno tenute distinte:
+
+- la domanda principale orienta README, notebook e output pubblici
+- le domande secondarie o complementari possono emergere in Discussions e trasformarsi in issue operative
+
+In questo modo il repository resta leggibile e non diventa un contenitore indistinto di analisi.
+
 ## 🔎 Cosa puoi capire con questi dati
 
 - come cambia il fenomeno nel tempo
@@ -58,8 +67,18 @@ Questo repository distingue chiaramente:
 - **Discussions** -> domande civiche, interpretazioni, proposte di metriche
 - **Issues** -> bug, problemi tecnici, miglioramenti della pipeline
 
+Flusso consigliato:
+
+`domanda civica -> Discussion -> Issue -> analisi / notebook / output`
+
 Se non sei tecnico, parti da una **Discussion** in questa repo:
 spiega il contesto, il territorio o l'anno che ti interessa e cosa vuoi capire.
+
+Se la domanda richiede lavoro concreto, va trasformata in una **Issue** nella repo giusta:
+
+- issue dataset-specifiche in questa repo
+- issue di runtime o pipeline nel `toolkit`
+- issue di governance o processo nelle repo di ecosistema
 
 ## 📚 Documentazione del dataset
 
@@ -80,6 +99,9 @@ Qui trovi il minimo necessario per far partire un progetto concreto:
 - `docs/` per documentazione locale del dataset
 - `tests/` per i contract tests minimi
 - `notebooks/` per leggere gli output reali della pipeline
+
+Un repo nato da questo template non serve solo a "ospitare dati".
+Serve a rispondere in modo verificabile a una domanda civica centrale, lasciando spazio anche a domande complementari ben tracciate.
 
 ## 🛠️ Confine con il toolkit
 
