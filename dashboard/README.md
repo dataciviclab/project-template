@@ -1,41 +1,18 @@
-# 📊 /dashboards – Output pubblico
+# /dashboard - Output pubblico opzionale
 
-Questa cartella raccoglie le informazioni sugli **output pubblici** del progetto (dashboard, report, mappe).
+Questa cartella raccoglie materiali per output pubblici del progetto, come dashboard, report o mappe.
+Qui vanno link, note di lettura, screenshot e limiti dell'output, non i dati.
 
-Qui non ci sono “file dati”: qui ci sono **link, screenshot e spiegazioni**.
+## Cosa inserire qui
 
----
-
-## ✅ Cosa inserire qui
-
-- **Link pubblico** alla dashboard (Looker Studio / Superset / altro)
+- link pubblico alla dashboard
 - breve descrizione dei KPI principali
 - note su come leggere i grafici
-- limiti e assunzioni (cosa NON si può dedurre)
-- data ultimo aggiornamento
+- limiti e assunzioni
+- data di ultimo aggiornamento
 
----
+## Coerenza con i mart
 
-## 🧾 Template consigliato
-
-```text
-Tipo: Dashboard (Looker Studio)
-Link: https://...
-KPI principali:
-- ...
-Come leggere:
-- ...
-Limiti:
-- ...
-Ultimo aggiornamento: YYYY-MM-DD
-```
-
----
-
-## 🔁 Coerenza con i mart
-
-Ogni dashboard dovrebbe essere legata a uno o più dataset in `/data/mart`
-(con schema documentato e link Drive aggiornato).
-
----
-
+Ogni dashboard dovrebbe essere collegata ai mart documentati e aggiornati del progetto.
+Se il progetto usa un archivio pubblico su Drive, documenta qui quali file pubblicati alimentano la dashboard.
+La pubblicazione su Drive resta una operazione `maintainer-only`.

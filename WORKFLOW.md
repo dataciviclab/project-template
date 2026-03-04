@@ -1,116 +1,46 @@
-# 🔁 WORKFLOW – come si lavora
+# Workflow
 
-Questo documento descrive il workflow standard per lavorare su un progetto DataCivicLab.
+Come contribuire in modo semplice a un progetto dataset DataCivicLab.
 
-Obiettivo: **collaborazione semplice, asincrona, scalabile**.
+## Percorsi
 
----
+- feedback o idee: usa le Discussions della repo se vuoi lasciare una traccia ragionata
+- avanzamento operativo: usa issue, project board o milestone della repo
+- insight o visual: parti da `sql/` o `dashboard/` se il progetto li prevede
 
-## 🧭 Principio base
+## Dove andare
 
-```text
-Tutto parte da una Discussion.
-Tutto finisce in una Pull Request.
-```
+- setup e contributo rapido: [docs/contributing.md](docs/contributing.md)
+- contesto DataCivicLab, policy comuni e motore tecnico: [docs/lab_links.md](docs/lab_links.md)
+- indice docs locali: [docs/README.md](docs/README.md)
 
----
+## Confine tecnico
 
-## 1) Discussion → idee, domande, contesto
+- questa repo contiene config dataset, SQL, docs, test di contratto e notebook
+- il motore di esecuzione della pipeline sta nel repo toolkit
+- se il problema riguarda run, CLI o comportamento interno del motore, aprilo nel toolkit
+- se il problema riguarda fonti, mapping, mart o documentazione del dataset, aprilo qui
 
-Le **Discussions** servono per:
-- proporre una domanda civica
-- discutere dataset e fonti
-- fare scelte metodologiche (KPI, perimetro, definizioni)
-- allineare rapidamente il team
+## Flusso minimo
 
-👉 Nessun lavoro “pesante” parte senza almeno **una discussion iniziale**.
+1. apri una domanda, un feedback o una correzione
+2. scegli una issue o aprine una nuova
+3. lavora su branch dedicato
+4. apri una PR piccola e leggibile
 
----
+GitHub resta il posto dove deve restare la traccia utile.
 
-## 2) Issue → task concreti
+## Flusso tecnico minimo
 
-Le **Issue** rappresentano lavoro reale.
+1. valida la config con `py -m pytest tests/test_contract.py`
+2. esegui `toolkit run all --config dataset.yml`
+3. esegui `toolkit validate all --config dataset.yml`
+4. esegui `toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml`
+5. usa `toolkit inspect paths --config dataset.yml --year <year> --json`
+6. usa i notebook per ispezionare RAW, CLEAN, MART e QA
 
-Una issue dovrebbe:
-- avere un obiettivo chiaro
-- essere limitata (no mega-task)
-- avere criteri di chiusura (Definition of Done)
+## Maintainers
 
-Esempi:
-- ingestione dataset X (raw)
-- pulizia e normalizzazione (clean)
-- costruzione mart + KPI base
-- prima dashboard (MVP)
-
-👉 Una issue = una cosa fatta.
-
----
-
-## 3) Branch → lavorare senza rompere `main`
-
-Ogni issue si lavora su un **branch dedicato**.
-
-Naming consigliato:
-```text
-issue-12-clean-dataset-rifiuti
-```
-
-Regole:
-- non lavorare direttamente su `main`
-- PR piccole e frequenti > PR gigante
-
----
-
-## 4) Pull Request → revisione e qualità
-
-La **Pull Request (PR)** serve a:
-- mostrare cosa è stato fatto
-- permettere review e miglioramenti
-- lasciare traccia delle decisioni
-
-Una PR è pronta quando:
-- il task è completo
-- README / docs coinvolte sono aggiornate
-- non sono stati caricati dati sul repo
-
----
-
-## 5) Review → Merge
-
-La review verifica:
-- coerenza metodologica
-- qualità dei notebook / query
-- chiarezza della documentazione
-
-Chi può approvare:
-- **Project Lead** o **Maintainer** (vedi `GOVERNANCE.md`)
-
-Dopo approvazione → merge su `main`.
-
----
-
-## 📦 Dati e Drive (importante)
-
-```text
-GitHub = codice + metodo + documentazione
-Drive  = dati
-```
-
-Nelle PR:
-- **non** caricare CSV/XLS/Parquet “pesanti”
-- inserire **link Drive** e schema/README aggiornati
-- spiegare cosa è cambiato e perché
-
----
-
-## ✅ Definition of Done (DoD)
-
-Per chiudere un task, in generale:
-- output prodotto (notebook/query/dashboard)
-- documentazione aggiornata (almeno README rilevanti)
-- link Drive inseriti correttamente
-- controlli qualità minimi eseguiti
-
-(Se vuoi una DoD più dettagliata: `docs/definition-of-done.md`.)
-
----
+1. revisiona PR e stato del dataset
+2. verifica `status` e output finali
+3. se il progetto ha un archivio pubblico, pubblica gli artifact con `py scripts/publish_to_drive.py`

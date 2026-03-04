@@ -1,0 +1,70 @@
+schema_version: 1
+root: "./_smoke_out"
+
+dataset:
+  name: "bdap_http_csv"
+  years: [2022]
+
+raw:
+  output_policy: "versioned"
+  sources:
+    - name: "bdap_csv"
+      type: "http_file"
+      args:
+        url: "https://bdap-opendata.rgs.mef.gov.it/export/csv/Rendiconto-Pubblicato---Serie-storica---Saldi.csv"
+        filename: "bdap_rendiconto_saldi_{year}.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read_mode: "fallback"
+  read:
+    source: "config_only"
+    mode: "explicit"
+    include:
+      - "bdap_rendiconto_saldi_*.csv"
+    delim: ";"
+    decimal: "."
+    encoding: "utf-8"
+    header: true
+    columns: null
+  required_columns:
+    - "anno"
+    - "saldo_netto"
+    - "indebitamento_netto"
+    - "avanzo_primario"
+    - "entrate_finali"
+    - "spese_finali"
+  validate:
+    primary_key:
+      - "anno"
+    not_null:
+      - "anno"
+    min_rows: 1
+
+mart:
+  tables:
+    - name: "mart_ok"
+      sql: "sql/mart/mart_ok.sql"
+  required_tables:
+    - "mart_ok"
+  validate:
+    table_rules:
+      mart_ok:
+        required_columns:
+          - "anno"
+          - "saldo_netto"
+          - "entrate_finali"
+          - "spese_finali"
+        primary_key:
+          - "anno"
+        not_null:
+          - "anno"
+        min_rows: 1
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "minimal"
+  legacy_aliases: true
