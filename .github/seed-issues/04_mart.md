@@ -1,20 +1,13 @@
 ---
-title: "[MART] Costruire tabelle analitiche e regole di validazione MART"
+title: "[MART] Costruire tabelle finali e validation rules essenziali"
 labels: ["DATA", "METODO"]
 assignees: []
 ---
-## Perche questa fase conta
-
-Qui il progetto inizia a produrre risposte utilizzabili.
-I mart sono la parte che alimenta analisi, dashboard e insight condivisibili.
-
-## Output visibile al pubblico
-
-Tabelle finali leggibili, da cui ricavare indicatori e confronti.
-
 ## Obiettivo
 
 Produrre uno o piu mart orientati a KPI e output finali, con tabella/e e validation rules esplicite.
+
+Usare questa issue quando CLEAN regge gia e il prossimo blocco e arrivare a un output leggibile.
 
 ## Checklist
 
@@ -25,16 +18,6 @@ Produrre uno o piu mart orientati a KPI e output finali, con tabella/e e validat
 - [ ] Usare `toolkit inspect paths --config dataset.yml --year <year> --json` per localizzare i mart
 - [ ] Verificare required columns, chiavi, `not_null`, `min_rows` e KPI sanity
 - [ ] Aggiornare `docs/data_dictionary.md` con granularita, KPI e semantica dei mart
-
-## Output atteso
-
-Mart pronti per dashboard o report, con SQL separata per tabella e regole di validazione chiare.
-
-## Supporto operativo
-
-- notebook consigliato: `notebooks/03_explore_mart.ipynb`
-- comando minimo: `toolkit run mart --config dataset.yml`
-- comando di discovery: `toolkit inspect paths --config dataset.yml --year <year> --json`
 
 ## File da toccare
 
@@ -48,4 +31,4 @@ Mart pronti per dashboard o report, con SQL separata per tabella e regole di val
 - ogni tabella dichiarata in `mart.tables[]` ha un file SQL dedicato
 - eventuali regole MART dichiarate in `dataset.yml` sono coerenti con le tabelle pubblicate
 - rowcount sanity e duplicate check sono stati eseguiti
-- il progetto puo passare a QA con mart leggibili e validabili
+- il progetto produce almeno un mart leggibile e validabile

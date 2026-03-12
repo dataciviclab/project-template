@@ -1,20 +1,13 @@
 ---
-title: "[CLEAN] Implementare normalizzazione, required columns e validazioni CLEAN"
+title: "[CLEAN] Normalizzare input e chiudere il contratto CLEAN minimo"
 labels: ["DATA"]
 assignees: []
 ---
-## Perche questa fase conta
-
-Qui il dato diventa davvero leggibile e confrontabile.
-Una buona fase CLEAN riduce errori, ambiguita e lavoro manuale futuro.
-
-## Output visibile al pubblico
-
-Un dataset piu chiaro, con colonne coerenti e significato documentato.
-
 ## Obiettivo
 
 Portare il dataset da RAW a CLEAN con SQL esplicita, schema documentato e validazioni minime.
+
+Usare questa issue quando il problema vero e sulla lettura, normalizzazione o stabilita dello schema.
 
 ## Checklist
 
@@ -25,17 +18,7 @@ Portare il dataset da RAW a CLEAN con SQL esplicita, schema documentato e valida
 - [ ] Eseguire `toolkit validate clean --config dataset.yml`
 - [ ] Usare `toolkit inspect paths --config dataset.yml --year <year> --json` per localizzare il layer CLEAN
 - [ ] Aggiornare `docs/data_dictionary.md` per il layer CLEAN
-- [ ] Loggare assunzioni e mapping in `docs/decisions.md`
-
-## Output atteso
-
-Layer CLEAN riproducibile, con schema e regole di validazione sufficienti per alimentare i mart.
-
-## Supporto operativo
-
-- notebook consigliato: `notebooks/02_inspect_clean.ipynb`
-- path attesi: `root/data/clean/<dataset>/<year>/`
-- comando di discovery: `toolkit inspect paths --config dataset.yml --year <year> --json`
+- [ ] Loggare mapping o assunzioni non ovvie in `docs/decisions.md`
 
 ## File da toccare
 

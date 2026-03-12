@@ -1,20 +1,13 @@
 ---
-title: "[Maintenance] Gestire nuove annualita, cambi schema e regressioni"
+title: "[Maintenance] Gestire nuove annualita, drift schema e regressioni"
 labels: ["DATA", "MAINTENANCE"]
 assignees: []
 ---
-## Perche questa fase conta
-
-I dataset non restano fermi: cambiano fonti, anni, regole e definizioni.
-Questa fase serve a mantenere il progetto utile anche dopo la prima release.
-
-## Output visibile al pubblico
-
-Un progetto che resta aggiornabile e non si rompe al primo cambiamento di fonte.
-
 ## Obiettivo
 
 Definire il lavoro necessario per mantenere il dataset nel tempo quando cambiano fonte, schema o regole.
+
+Usare questa issue quando il progetto esiste gia e arriva un cambio reale di anno, fonte o schema.
 
 ## Checklist
 
@@ -24,15 +17,6 @@ Definire il lavoro necessario per mantenere il dataset nel tempo quando cambiano
 - [ ] Rieseguire smoke opzionale in caso di cambio sostanziale
 - [ ] Aggiornare `docs/sources.md`, `docs/data_dictionary.md` e `docs/decisions.md`
 - [ ] Documentare regressioni o incompatibilita
-
-## Output atteso
-
-Piano di manutenzione chiaro e procedimento ripetibile per evolvere il dataset senza rompere il contratto del template.
-
-## Supporto operativo
-
-- notebook consigliato: `notebooks/01_inspect_raw.ipynb`, `notebooks/02_inspect_clean.ipynb`, `notebooks/03_explore_mart.ipynb`
-- comandi minimi: `py -m pytest tests/test_contract.py`, `toolkit run all --config dataset.yml`, `toolkit validate all --config dataset.yml`
 
 ## File da toccare
 

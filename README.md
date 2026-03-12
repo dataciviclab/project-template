@@ -162,6 +162,16 @@ Per il resto:
 
 I riferimenti rapidi sono raccolti in `docs/lab_links.md`.
 
+## Seed issue del template
+
+Questo template include anche una piccola libreria di seed issue in `.github/seed-issues/`.
+
+Non vanno aperte tutte in blocco:
+
+- servono come base da adattare al dataset reale
+- conviene usarne poche, solo quando corrispondono a un blocco o a un prossimo passo concreto
+- il workflow `seed-issues.yml` crea issue solo dai file numerati `NN_nome.md`
+
 ## 🌍 Archivio pubblico
 
 Se il progetto pubblica artifact in un archivio pubblico DataCivicLab su Drive, il flusso consigliato e:
