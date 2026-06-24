@@ -131,7 +131,7 @@ La struttura resta invariata. Non serve capire tutto subito: qui trovi la base p
 pip install dataciviclab-toolkit
 toolkit run all --config dataset.yml
 toolkit validate all --config dataset.yml
-toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml
+toolkit inspect summary --dataset <dataset> --year <year> --latest --config dataset.yml
 ```
 
 I notebook del template usano anche:

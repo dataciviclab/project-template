@@ -106,5 +106,5 @@ echo "YEAR=${YEAR}"
 
 run_toolkit run all --config "${DATASET_FILE}"
 run_toolkit validate all --config "${DATASET_FILE}"
-run_toolkit status --dataset "${DATASET_NAME}" --year "${YEAR}" --latest --config "${DATASET_FILE}"
+run_toolkit inspect summary --dataset "${DATASET_NAME}" --year "${YEAR}" --latest --config "${DATASET_FILE}"
 run_toolkit inspect paths --config "${DATASET_FILE}" --year "${YEAR}" --json

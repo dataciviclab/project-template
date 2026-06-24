@@ -44,7 +44,7 @@ Su Windows, se `sh` non e disponibile nel `PATH`, usa una shell POSIX come Git B
 ```powershell
 toolkit run all --config dataset.yml
 toolkit validate all --config dataset.yml
-toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml
+toolkit inspect summary --dataset <dataset> --year <year> --latest --config dataset.yml
 ```
 
 ## Dove scrivere cosa
@@ -85,7 +85,7 @@ La destinazione su Drive mantiene gli stessi path relativi sotto `root`, quindi 
 ```sh
 toolkit run all --config dataset.yml
 toolkit validate all --config dataset.yml
-toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml
+toolkit inspect summary --dataset <dataset> --year <year> --latest --config dataset.yml
 toolkit inspect paths --config dataset.yml --year <year> --json
 ```
 
@@ -120,7 +120,7 @@ Queste fasi non sono una catena rigida: spesso bastano 2-4 issue piccole per far
 | Sources/RAW | `dataset.yml`, `docs/sources.md`, `docs/decisions.md` | `toolkit run raw --config dataset.yml`, poi `toolkit inspect paths --config dataset.yml --year <year> --json` | `01_inspect_raw.ipynb` |
 | CLEAN | `sql/clean.sql`, `dataset.yml`, `docs/data_dictionary.md` | `toolkit run clean --config dataset.yml`, poi `toolkit inspect paths --config dataset.yml --year <year> --json` | `02_inspect_clean.ipynb` |
 | MART | `sql/mart/*.sql`, `dataset.yml` | `toolkit run mart --config dataset.yml`, poi `toolkit inspect paths --config dataset.yml --year <year> --json` | `03_explore_mart.ipynb` |
-| Release | `README.md`, `docs/overview.md`, `docs/data_dictionary.md` | `toolkit status --dataset <dataset> --year <year> --latest --config dataset.yml` | `00_quickstart.ipynb` |
+| Release | `README.md`, `docs/overview.md`, `docs/data_dictionary.md` | `toolkit inspect summary --dataset <dataset> --year <year> --latest --config dataset.yml` | `00_quickstart.ipynb` |
 | Maintenance | `dataset.yml`, `sql/`, `docs/`, `tests/test_contract.py` | `toolkit run all --config dataset.yml` | `01_inspect_raw.ipynb`, `02_inspect_clean.ipynb`, `03_explore_mart.ipynb` |
 
 I notebook usano `toolkit inspect paths --config dataset.yml --year <year> --json` come contratto stabile per localizzare gli output.
