@@ -11,6 +11,7 @@ Regole pratiche:
 - preferire issue piccole e chiudibili in poco tempo
 - evitare issue generiche tipo "fare QA completa" o "fare dashboard" se il progetto non e pronto
 - adattare sempre titolo, checklist e acceptance criteria al dataset concreto
+- nel modello multi-dataset, riferirsi a un dataset specifico (`datasets/<slug>/`) quando possibile
 
 Seed consigliate come base:
 

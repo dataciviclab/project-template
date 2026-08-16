@@ -12,18 +12,22 @@ Usare questa issue solo se il repo e appena nato o se il perimetro e ancora ambi
 ## Checklist
 
 - [ ] Definire una domanda guida chiara
-- [ ] Compilare `dataset.yml` con `dataset.name`, `dataset.years` e `root`
-- [ ] Confermare la struttura canonica `sql/clean.sql` e `sql/mart/<table>.sql`
+- [ ] Identificare i dataset principali e i support dataset (struttura `datasets/` + `support/`)
+- [ ] Sostituire `datasets/demo-saldi-stato/` con un dataset reale (`dataset.name`, `dataset.years`, `root`)
+- [ ] Compilare `Makefile` e workflow (bucket GCS, prefix registry) con lo slug del repo
 - [ ] Verificare che i path in config siano root-relative POSIX
-- [ ] Verificare che `tests/test_contract.py` sia verde in locale
+- [ ] Verificare che `python -m pytest tests/` sia verde in locale
 
 ## File da toccare
 
-- `dataset.yml`
+- `datasets/<slug>/dataset.yml`
 - `README.md`
+- `Makefile`
+- `.github/workflows/pipeline.yml`
 
 ## Acceptance criteria
 
-- `dataset.yml` esiste ed e coerente con il contratto del template
+- `datasets/<slug>/dataset.yml` esiste ed e coerente con il contratto del template
 - il perimetro del progetto e leggibile nel `README`
-- `py -m pytest tests/test_contract.py` passa
+- `python -m pytest tests/` passa
+- `make check` valida tutti i dataset

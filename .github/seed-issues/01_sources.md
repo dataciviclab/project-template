@@ -12,15 +12,15 @@ Usare questa issue quando il blocco vero e ancora sulla fonte, non su CLEAN o MA
 ## Checklist
 
 - [ ] Identificare fonte primaria, URL canonico e frequenza di aggiornamento
-- [ ] Aggiornare `raw.sources[].type` e `raw.sources[].args` in `dataset.yml`
+- [ ] Aggiornare `raw.sources[].type` e `raw.sources[].args` in `datasets/<slug>/dataset.yml`
 - [ ] Documentare licenza, coverage e refresh in `docs/sources.md`
 - [ ] Registrare trade-off rilevanti in `docs/decisions.md`
 - [ ] Verificare che non esistano path assoluti o riferimenti locali
-- [ ] Rieseguire `py -m pytest tests/test_contract.py`
+- [ ] Rieseguire `python -m pytest tests/`
 
 ## File da toccare
 
-- `dataset.yml`
+- `datasets/<slug>/dataset.yml`
 - `docs/sources.md`
 - `docs/decisions.md`
 
@@ -29,4 +29,4 @@ Usare questa issue quando il blocco vero e ancora sulla fonte, non su CLEAN o MA
 - la fonte e verificabile e documentata
 - `raw.sources` e compilato con campi sufficienti all'esecuzione
 - `docs/sources.md` contiene note minime su licenza, refresh e limiti noti
-- `py -m pytest tests/test_contract.py` passa
+- `python -m pytest tests/` passa

@@ -1,12 +1,12 @@
 # Workflow
 
-Come contribuire in modo semplice a un progetto dataset DataCivicLab.
+Come contribuire in modo semplice a un repo dataset DataCivicLab.
 
 ## Percorsi
 
 - feedback o idee: usa le Discussions della repo se vuoi lasciare una traccia ragionata
 - avanzamento operativo: usa issue, project board o milestone della repo
-- insight o visual: parti da `sql/` o `dashboard/` se il progetto li prevede
+- insight o visual: parti da `sql/` o dai notebook se il progetto li prevede
 
 ## Dove andare
 
@@ -16,7 +16,8 @@ Come contribuire in modo semplice a un progetto dataset DataCivicLab.
 
 ## Confine tecnico
 
-- questa repo contiene config dataset, SQL, docs, test di contratto e notebook
+- questa repo contiene config dataset (`datasets/`, `support/`), SQL, docs,
+  test di contratto e notebook
 - il motore di esecuzione della pipeline sta nel repo toolkit
 - se il problema riguarda run, CLI o comportamento interno del motore, aprilo nel toolkit
 - se il problema riguarda fonti, mapping, mart o documentazione del dataset, aprilo qui
@@ -26,21 +27,19 @@ Come contribuire in modo semplice a un progetto dataset DataCivicLab.
 1. apri una domanda, un feedback o una correzione
 2. scegli una issue o aprine una nuova
 3. lavora su branch dedicato
-4. apri una PR piccola e leggibile
+4. apri una PR piccola e leggibile (usa il PR template)
 
 GitHub resta il posto dove deve restare la traccia utile.
 
 ## Flusso tecnico minimo
 
-1. valida la config con `py -m pytest tests/test_contract.py`
-2. esegui `toolkit run all --config dataset.yml`
-3. esegui `toolkit validate all --config dataset.yml`
-4. esegui `toolkit inspect summary --dataset <dataset> --year <year> --latest --config dataset.yml`
-5. usa `toolkit inspect paths --config dataset.yml --year <year> --json`
-6. usa i notebook per ispezionare RAW, CLEAN, MART e QA
+1. valida la config con `make check` (preflight su tutti i dataset)
+2. esegui i test di contratto con `python -m pytest tests/`
+3. esegui `make seeds` e `make run` per produrre gli output
+4. usa i notebook per ispezionare RAW, CLEAN, MART e QA
 
 ## Maintainers
 
-1. revisiona PR e stato del dataset
-2. verifica `status` e output finali
-3. se il progetto ha un archivio pubblico, pubblica gli artifact con `py scripts/publish_to_drive.py`
+1. revisiona PR e stato dei dataset
+2. verifica `make check` e output finali
+3. la pipeline pubblica gli output su GCS e aggiorna il registry (draft PR)

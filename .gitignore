@@ -1,36 +1,22 @@
 # =========================
-# DATI (NON VERSIONARE)
+# OUTPUT DI RUN (NON VERSIONARE)
 # =========================
-data/**
-!data/**/
-!data/**/README.md
-!data/_examples/
-!data/_examples/**
-
-# output di run e artifact locali
-_runs/
-_runs/**
-!_runs/.gitkeep
-_smoke_out/
-_smoke_out/**
-_test_out/
-_test_out/**
-
-# eventuali export temporanei generati dal toolkit
-_runs/**/*.csv
-_runs/**/*.tsv
-_runs/**/*.parquet
+out/*
+!out/.gitkeep
 
 # =========================
 # NOTEBOOK / PYTHON
 # =========================
 __pycache__/
 *.py[cod]
-*.ipynb_checkpoints/
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
 .env
 .venv/
 venv/
 .envrc
+.coverage
 
 # =========================
 # TOOL / TEMP
@@ -80,3 +66,4 @@ service_account.json
 # ALTRO
 # =========================
 nohup.out
+_local/

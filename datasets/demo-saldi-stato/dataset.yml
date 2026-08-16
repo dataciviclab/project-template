@@ -1,8 +1,18 @@
+# DEMO dataset — da sostituire/rimuovere quando si avvia un dataset reale.
+# Serve a mostrare la struttura minima di un dataset in questo repo:
+#   datasets/<slug>/dataset.yml  → contratto
+#   datasets/<slug>/sql/clean.sql → trasformazione RAW → CLEAN
+#   datasets/<slug>/sql/mart_*.sql → mart derivati
+# root: path relativo alla dir di QUESTO file (datasets/<slug>/), verso out/
+root: "../../out"
 schema_version: 1
-root: "./_smoke_out"
 
 dataset:
-  name: "bdap_http_csv"
+  name: "demo_saldi_stato"
+  source_id: "mef_bdap"
+  tags: [demo, finanza-pubblica, saldi]
+  category: finanza-pubblica
+  description: "Demo — saldi di finanza pubblica (BDAP) usato come esempio di struttura."
   years: [2022]
 
 raw:
@@ -45,7 +55,7 @@ clean:
 mart:
   tables:
     - name: "mart_ok"
-      sql: "sql/mart/mart_ok.sql"
+      sql: "sql/mart_ok.sql"
   required_tables:
     - "mart_ok"
   validate:

@@ -11,18 +11,18 @@ Usare questa issue quando CLEAN regge gia e il prossimo blocco e arrivare a un o
 
 ## Checklist
 
-- [ ] Creare o aggiornare `sql/mart/<table>.sql` per ogni tabella dichiarata
-- [ ] Allineare `mart.tables` in `dataset.yml` e aggiungere eventuali regole di validazione supportate dal toolkit
-- [ ] Eseguire `toolkit run mart --config dataset.yml --year <year>`
-- [ ] Eseguire `toolkit validate --config dataset.yml --year <year>`
-- [ ] Usare `toolkit inspect paths --config dataset.yml --year <year> --json` per localizzare i mart
+- [ ] Creare o aggiornare `datasets/<slug>/sql/mart_<table>.sql` per ogni tabella dichiarata
+- [ ] Allineare `mart.tables` in `datasets/<slug>/dataset.yml` e aggiungere eventuali regole di validazione supportate dal toolkit
+- [ ] Eseguire `toolkit run mart --config datasets/<slug>/dataset.yml --year <year>`
+- [ ] Eseguire `toolkit validate --config datasets/<slug>/dataset.yml --year <year>`
+- [ ] Usare `toolkit inspect paths --config datasets/<slug>/dataset.yml --year <year> --json` per localizzare i mart
 - [ ] Verificare required columns, chiavi, `not_null`, `min_rows` e KPI sanity
 - [ ] Aggiornare `docs/data_dictionary.md` con granularita, KPI e semantica dei mart
 
 ## File da toccare
 
-- `sql/mart/<table>.sql`
-- `dataset.yml`
+- `datasets/<slug>/sql/mart_<table>.sql`
+- `datasets/<slug>/dataset.yml`
 - `docs/data_dictionary.md`
 - `docs/decisions.md`
 
