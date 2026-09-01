@@ -1,4 +1,5 @@
 name: pipeline
+
 on:
   pull_request:
     types: [closed]
@@ -6,20 +7,26 @@ on:
       - "datasets/**"
       - "support/**"
       - "scripts/**"
-      - ".github/workflows/pipeline.yml"
   schedule:
-    # Riga temporizzata da configurare per il ritmo del dataset (es. mensile).
     - cron: "0 6 1 * *"
   workflow_dispatch:
     inputs:
-      years:
-        description: "Anni (es. 2025 o all) — default: dalla config dei dataset"
-        required: false
-        default: ""
+      repo-slug:
+        description: "Repo slug (es. il-nome-del-repo)"
+        required: true
+        type: string
+      sync-pattern:
+        description: "flat o per-dataset"
+        default: "per-dataset"
+        type: string
 
 concurrency:
   group: pipeline-${{ github.event.pull_request.number || github.ref || 'schedule' }}
   cancel-in-progress: false
+
+env:
+  GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+  GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
 jobs:
   pipeline:
@@ -28,12 +35,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    env:
-      # Runner CI = 2GB RAM: limiti conservativi via env (lab-connectors
-      # safe_connect) — evitano OOM sui volumi dati.
-      DUCKDB_MEMORY_LIMIT: 1.5GB
-      DUCKDB_THREADS: 2
-      DUCKDB_PRESERVE_INSERTION_ORDER: false
+      id-token: write
+
     steps:
       - uses: actions/checkout@v7
         with:
@@ -49,21 +52,26 @@ jobs:
         run: make run
 
       # ── GCS auth + sync ─────────────────────────────────────────────
-      - name: Auth GCP
-        id: gcs
-        uses: dataciviclab/.github/actions/gcs-auth@main
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      - name: GCP Auth (WIF)
+        if: env.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && env.GCP_SERVICE_ACCOUNT != ''
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ env.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ env.GCP_SERVICE_ACCOUNT }}
 
-      - name: Sync to GCS
-        if: steps.gcs.outputs.ready == 'true'
+      - name: Setup gcloud
+        if: env.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && env.GCP_SERVICE_ACCOUNT != ''
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Sync to GCS (per-dataset)
+        if: env.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && inputs.sync-pattern == 'per-dataset'
         run: |
           for slug_dir in out/data/clean/*/; do
             [ -d "$slug_dir" ] || continue
             slug=$(basename "$slug_dir")
             year=$(ls "$slug_dir" 2>/dev/null | sort -rn | head -1)
             [ -z "$year" ] && echo "⚠️  No clean output for $slug" && continue
-            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-clean/<repo-slug>/$slug/"
+            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-clean/${{ inputs.repo-slug }}/$slug/$year/"
             echo "✅ $slug clean synced"
           done
           for slug_dir in out/data/mart/*/; do
@@ -71,17 +79,21 @@ jobs:
             slug=$(basename "$slug_dir")
             year=$(ls "$slug_dir" 2>/dev/null | sort -rn | head -1)
             [ -z "$year" ] && echo "⚠️  No mart output for $slug" && continue
-            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-mart/<repo-slug>/$slug/"
+            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-mart/${{ inputs.repo-slug }}/$slug/$year/"
             echo "✅ $slug mart synced"
           done
 
-      # ── Registry → draft PR (componente condiviso) ──────────────────
-      # Nello STESSO job del run: il registry deriva le entry dai parquet
-      # locali in out/ (in un job separato produrrebbe un catalogo vuoto).
+      - name: Sync to GCS (flat)
+        if: env.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && inputs.sync-pattern == 'flat'
+        run: |
+          gsutil -m rsync -r out/data/mart/ gs://dataciviclab-mart/${{ inputs.repo-slug }}/
+          gsutil -m rsync -r out/data/clean/ gs://dataciviclab-clean/${{ inputs.repo-slug }}/
+          echo "✅ Synced to gs://dataciviclab-mart|clean/${{ inputs.repo-slug }}/"
+
+      # ── Registry → draft PR ──────────────────────────────────────────
       - name: Registry update PR
         uses: dataciviclab/.github/actions/registry-update-pr@main
         with:
-          prefix: "<repo-slug>"
-          flat: "true"
+          prefix: "${{ inputs.repo-slug }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

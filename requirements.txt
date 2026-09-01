@@ -1,4 +1,4 @@
 # Dipendenze runtime del repo (dataset puro — requirements.txt è l'unica
 # fonte, ADR-001 §8). lab-connectors arriva transitivamente da toolkit.
-dataciviclab-toolkit @ git+https://github.com/dataciviclab/toolkit.git
+dataciviclab-toolkit @ git+https://github.com/dataciviclab/toolkit.git@v1.51.0
 duckdb>=1.5.3
