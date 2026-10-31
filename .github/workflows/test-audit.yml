@@ -1,4 +1,5 @@
 name: test-audit
+
 on:
   pull_request:
     paths:
@@ -16,4 +17,3 @@ jobs:
     uses: dataciviclab/.github/.github/workflows/test-audit-reusable.yml@main
     with:
       test-dirs: "tests"
-      extra-packages: "pytest pyyaml"

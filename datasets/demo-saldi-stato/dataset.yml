@@ -27,7 +27,6 @@ raw:
 
 clean:
   sql: "sql/clean.sql"
-  read_mode: "fallback"
   read:
     source: "config_only"
     mode: "explicit"
@@ -74,7 +73,3 @@ mart:
 
 validation:
   fail_on_error: true
-
-output:
-  artifacts: "minimal"
-  legacy_aliases: true

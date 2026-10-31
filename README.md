@@ -69,7 +69,7 @@ Lab, modello multi-dataset, ADR-001):
 - `requirements.txt` — dipendenze runtime (dataset puro)
 - `docs/` — documentazione locale
 - `tests/` — contract tests minimi
-- `.github/` — workflow condivisi (check, pipeline, test-audit)
+- `.github/` — workflow condivisi (check, pipeline)
 
 Un repo nato da questo template non serve solo a "ospitare dati": risponde in
 modo verificabile a una domanda civica centrale.
