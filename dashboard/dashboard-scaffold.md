@@ -8,12 +8,13 @@ Ogni volta che si crea una nuova dashboard Streamlit in un repo DataCivicLab.
 
 ## Checklist (obbligatoria per ogni dashboard)
 
-1. **Deploy files** — `requirements.txt`, `.streamlit/config.toml`, `Dockerfile`
-2. **sources.py** — usa `lab_connectors.formatters` (no duplicazione `fmt_*`), `@st.cache_data(ttl=3600)` su ogni funzione dati, anni derivati dal registry
-3. **SQL page** — `render_sql_query()` da `lab_connectors.duckdb.sql_page`, registry path con 3 parent da `pages/`
-4. **Tests** — almeno `tests/test_smoke.py` con `py_compile` su tutte le pagine
-5. **No `sys.path.insert`** — il pattern `from sources import ...` funziona senza hack
-6. **No URL hardcoded** — tutto passa da `lab_connectors.duckdb.queries`
+1. **app.py** — `st.set_page_config()` + `apply_branding()` da `lab_connectors.branding`
+2. **Deploy files** — `requirements.txt`, `.streamlit/config.toml`, `Dockerfile`
+3. **sources.py** — usa `lab_connectors.formatters` (no duplicazione `fmt_*`), `@st.cache_data(ttl=3600)` su ogni funzione dati, anni derivati dal registry
+4. **SQL page** — `render_sql_query()` da `lab_connectors.duckdb.sql_page`, registry path con 3 parent da `pages/`
+5. **Tests** — almeno `tests/test_smoke.py` con `py_compile` su tutte le pagine
+6. **No `sys.path.insert`** — il pattern `from sources import ...` funziona senza hack
+7. **No URL hardcoded** — tutto passa da `lab_connectors.duckdb.queries`
 
 ## Template files
 

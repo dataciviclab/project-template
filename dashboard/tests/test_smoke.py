@@ -9,7 +9,13 @@ import pytest
 
 pytestmark = pytest.mark.smoke
 
-PAGES_DIR = Path(__file__).resolve().parent.parent / "pages"
+DASHBOARD_DIR = Path(__file__).resolve().parent.parent
+PAGES_DIR = DASHBOARD_DIR / "pages"
+
+
+def test_app_compiles() -> None:
+    """L'entry point (branding + navigazione) deve compilarsi."""
+    py_compile.compile(str(DASHBOARD_DIR / "app.py"), doraise=True)
 
 
 @pytest.mark.parametrize(

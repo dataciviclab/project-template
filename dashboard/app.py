@@ -5,12 +5,18 @@
 """
 
 import streamlit as st
+from lab_connectors.branding import apply_branding
 
 st.set_page_config(
     page_title="{{TITLE}} · Dashboard",
     page_icon="{{ICON}}",
     layout="wide",
     initial_sidebar_state="expanded",
+)
+
+apply_branding(
+    repo_name="{{REPO}}",
+    repo_url="https://github.com/dataciviclab/{{REPO}}",
 )
 
 pages = {
@@ -27,11 +33,9 @@ pages = {
 
 pg = st.navigation(pages, position="sidebar")
 
-st.sidebar.markdown("---")
 st.sidebar.caption("Dati: {{FONTI}}")
 st.sidebar.caption(
     "Codice: [dataciviclab/{{REPO}}](https://github.com/dataciviclab/{{REPO}})"
 )
-st.sidebar.caption("[DataCivicLab](https://dataciviclab.org/) · CC BY 4.0")
 
 pg.run()
