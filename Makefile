@@ -5,8 +5,10 @@
 # conservativi.
 TOOLKIT = toolkit
 
-# Slug della repo: prefisso GCS e registry. Rinominalo quando cloni il template.
-REPO_SLUG ?= your-repo-slug
+# Slug della repo: prefisso GCS e registry. Default = nome della dir, come fa
+# la pipeline con github.event.repository.name: se cloni il template e la dir
+# ha il nome definitivo non serve toccare nulla.
+REPO_SLUG ?= $(notdir $(CURDIR))
 
 # --- Layer del repo (ADR-001, modello multi-dataset) ------------------------
 #   datasets/  dataset principali (una dir per dataset, ognuna con dataset.yml)
@@ -74,13 +76,20 @@ status-%:
 # --- Validazione config -----------------------------------------------------
 
 # Preflight: valida config e verifica la raggiungibilità delle fonti (rete).
+# Non si ferma al primo errore: riporta tutti i config rotti e poi esce 1.
 .PHONY: check
 check:
-	@for f in $(SUPPORT) $(DATASETS) $(COMPOSE); do \
+	@fail=0; \
+	for f in $(SUPPORT) $(DATASETS) $(COMPOSE); do \
 		echo "→ $$f"; \
-		$(TOOLKIT) run preflight --config "$$f" > /dev/null 2>&1 || exit 1; \
-	done
-	@echo "✅ All configs valid"
+		if $(TOOLKIT) run preflight --config "$$f" > /dev/null 2>&1; then \
+			echo "  ✅ OK"; \
+		else \
+			echo "  ❌ FAIL"; \
+			fail=1; \
+		fi; \
+	done; \
+	if [ $$fail -eq 0 ]; then echo "✅ All configs valid"; else echo "❌ Alcuni config non validi"; exit 1; fi
 
 # --- Test -------------------------------------------------------------------
 
