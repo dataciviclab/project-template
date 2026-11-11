@@ -5,6 +5,7 @@ on:
     types: [closed]
     paths:
       - "datasets/**"
+      - "compose/**"
       - "support/**"
   schedule:
     - cron: "0 6 1 * *"
@@ -21,6 +22,11 @@ jobs:
     with:
       repo-slug: "${{ github.event.repository.name }}"
       run-command: "make run-all"
+      # detect-paths abilita il batch selettivo: dopo un merge si rieseguono
+      # solo i dataset toccati (il reusable genera batch.txt e chiama `make run-batch`).
+      detect-paths: "datasets support compose"
+      # extra pyproject da installare (aggiungi `raw` se il repo ha script di estrazione)
+      install-extras: "dev,pipeline"
     permissions:
       contents: write
       pull-requests: write

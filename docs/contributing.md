@@ -46,7 +46,7 @@ per dataset (ogni `--config` punta a `datasets/<slug>/dataset.yml`):
 
 ```powershell
 toolkit run --config datasets/<slug>/dataset.yml
-toolkit validate all --config datasets/<slug>/dataset.yml
+toolkit validate --config datasets/<slug>/dataset.yml
 ```
 
 ## Dove scrivere cosa
@@ -60,7 +60,6 @@ Regola pratica:
 
 - non aprire issue grandi di lifecycle "per principio"
 - usa poche issue piccole, legate a un blocco reale o al prossimo passo concreto
-- le seed issue in `.github/seed-issues/` servono come base da adattare, non come pacchetto da aprire in blocco
 
 ## Pubblicazione output
 
@@ -74,24 +73,26 @@ passo manuale per pubblicare: basta far passare `make run` in CI.
 ```sh
 make check      # preflight su tutti i dataset (senza eseguire)
 make seeds      # esegue i support dataset
-make run        # esegue tutti i dataset (RAW → CLEAN → MART)
+make run-all    # support → dataset → compose (RAW → CLEAN → MART)
+make test       # pytest su tests/ e dashboard/tests/
 ```
 
 Per dataset singolo:
 
 ```sh
 toolkit run --config datasets/<slug>/dataset.yml
-toolkit validate all --config datasets/<slug>/dataset.yml
-toolkit inspect summary --dataset <dataset> --year <year> --latest --config datasets/<slug>/dataset.yml
-toolkit inspect paths --config datasets/<slug>/dataset.yml --year <year> --json
+toolkit validate --config datasets/<slug>/dataset.yml
+toolkit inspect runs --config datasets/<slug>/dataset.yml     # storico run e stato
+toolkit inspect config --config datasets/<slug>/dataset.yml   # schema, preview, profile
 ```
 
-Per workflow avanzati come `run raw|clean|mart`, `resume` o `profile raw`, vedi
+Per i workflow per layer (`toolkit run raw|clean|mart`) e gli altri comandi, vedi
 la documentazione del toolkit. Regola semplice per i layer:
 
 - `toolkit run raw|clean|mart ...` produce gli artifact
-- `toolkit inspect paths --config <dataset.yml> --year <year> --json` ti dice dove leggerli
-- notebook e controlli manuali devono leggere i path restituiti, non ricostruirli a mano
+- gli artifact stanno in `out/data/<layer>/<dataset>/<anno>/` e il `manifest.json`
+  del layer ne espone i puntatori (con `metadata.json` come payload ricco)
+- notebook e controlli manuali leggono i manifest, non ricostruiscono i path a mano
 
 ## Fasi operative leggere (per dataset)
 
@@ -112,7 +113,7 @@ Queste fasi non sono una catena rigida: spesso bastano 2-4 issue piccole per far
 | Sources/RAW | `dataset.yml`, `docs/sources.md`, `docs/decisions.md` | `toolkit run raw --config <dataset.yml>` |
 | CLEAN | `sql/clean.sql`, `dataset.yml`, `docs/data_dictionary.md` | `toolkit run clean --config <dataset.yml>` |
 | MART | `sql/mart_*.sql`, `dataset.yml` | `toolkit run mart --config <dataset.yml>` |
-| Release | `README.md`, `docs/overview.md`, `docs/data_dictionary.md` | `toolkit inspect summary --config <dataset.yml>` |
+| Release | `README.md`, `docs/overview.md`, `docs/data_dictionary.md` | `toolkit inspect runs --config <dataset.yml>` |
 | Maintenance | `dataset.yml`, `sql/`, `docs/`, `tests/` | `make run` |
 
 Ruoli minimi da tenere distinti negli artifact:
@@ -137,6 +138,6 @@ Ruoli minimi da tenere distinti negli artifact:
 
 ## Poi dove vado?
 
-- workflow umano: [../WORKFLOW.md](../WORKFLOW.md)
+- workflow umano e policy del Lab: [dataciviclab/.github](https://github.com/dataciviclab/.github)
 - docs locali: [README.md](README.md)
 - contesto DataCivicLab, policy comuni e motore: [lab_links.md](lab_links.md)

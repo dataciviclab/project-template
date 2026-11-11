@@ -1,9 +1,12 @@
 name: check
 
 on:
+  push:
+    branches: [main]
   pull_request:
     paths:
       - "datasets/**"
+      - "compose/**"
       - "support/**"
       - "**/*.py"
       - "**/*.yml"
@@ -13,8 +16,26 @@ on:
       - "pyproject.toml"
 
 jobs:
+  # Lint + test. I controlli sui singoli dataset.yml stanno in validate-config,
+  # che gira solo sui dataset toccati dalla PR.
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dataciviclab/.github/actions/python-setup@main
+        with:
+          install-extras: "dev,pipeline"
+        timeout-minutes: 8
+      - uses: dataciviclab/.github/actions/python-ci@main
+        with:
+          lint_paths: "tests/ dashboard/tests/"
+          mypy_paths: ""
+          test_dir: "tests dashboard/tests"
+          pytest_args: "-v --tb=short"
+
   detect:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     outputs:
       dirs: ${{ steps.detect.outputs.dirs }}
       count: ${{ steps.detect.outputs.count }}
@@ -24,14 +45,15 @@ jobs:
       - uses: dataciviclab/.github/actions/detect-changed-datasets@main
         id: detect
         with:
-          paths: "datasets support"
+          paths: "datasets support compose"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   validate-config:
     needs: detect
-    if: needs.detect.outputs.found == 'true'
+    if: github.event_name == 'pull_request' && needs.detect.outputs.found == 'true'
     uses: dataciviclab/.github/.github/workflows/dataset-config-check-reusable.yml@main
     with:
+      install: "pip install -e '.[dev,pipeline]'"
       configs: ${{ needs.detect.outputs.dirs }}
       years: "from-config"

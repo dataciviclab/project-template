@@ -3,7 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dataciviclab-<source-id>"
+# Nome del package: quando cloni il template rinominalo in `dataciviclab-<repo-slug>`.
+# Deve restare un nome PEP 508 valido (niente segnaposto): `pip install -e .` gira in CI.
+name = "dataciviclab-template"
 version = "0.1.0"
 description = "<descrizione breve, ≤15 parole>"
 readme = "README.md"
@@ -31,9 +33,19 @@ dev = [
 pipeline = [
     "dataciviclab-toolkit @ git+https://github.com/dataciviclab/toolkit.git",
 ]
+# Serve solo se il repo ha dashboard/: `pip install -e ".[dashboard]"`
+dashboard = [
+    "streamlit>=1.61",
+    "plotly>=5.18",
+    "altair>=6.2",
+    "pandas>=3.0",
+    "duckdb>=1.5.3",
+    "lab-connectors[duckdb] @ git+https://github.com/dataciviclab/lab-connectors.git",
+]
 
 [project.urls]
-Home = "https://github.com/dataciviclab/<source-id>"
+Home = "https://github.com/dataciviclab/<repo-slug>"
 
 [tool.toolkit.extends]
-source_id = "<source-id>"
+# Slug della repo: usato dal registry e dai consumer cross-repo.
+source_id = "<repo-slug>"

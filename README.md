@@ -38,6 +38,13 @@ Le anagrafiche e i dizionari condivisi vivono in `support/` (es. lista comuni,
 codici gestionali, classificazioni). Si eseguono prima dei dataset principali
 con `make seeds`.
 
+## Compose dataset
+
+I dataset derivati vivono in `compose/`: leggono gli output di `datasets/` (e di
+`support/`) per produrre join, confronti e indicatori compositi. Il contratto è
+lo stesso `dataset.yml`, ma girano **dopo** i dataset principali
+(`make compose`, incluso in `make run-all`). Dettagli: [`compose/README.md`](compose/README.md).
+
 ## Perché fidarsi
 
 - fonti ufficiali o verificabili ([`docs/sources.md`](docs/sources.md))
@@ -64,9 +71,9 @@ repo di ecosistema).
 È il repo operativo che nasce da `project-template` (il template standard del
 Lab, modello multi-dataset, ADR-001):
 
-- `datasets/` + `support/` — contratti dei dataset (`dataset.yml` + `sql/`)
+- `datasets/` + `support/` + `compose/` — contratti dei dataset (`dataset.yml` + `sql/`)
 - `Makefile` — interfaccia stabile: `make seeds`, `make run`, `make check`
-- `requirements.txt` — dipendenze runtime (dataset puro)
+- `pyproject.toml` — dipendenze e config (extra `dev`, `pipeline`, `dashboard`)
 - `docs/` — documentazione locale
 - `tests/` — contract tests minimi
 - `.github/` — workflow condivisi (check, pipeline)
@@ -88,22 +95,28 @@ Se stai clonando il template per un nuovo progetto:
 
 1. aggiorna la domanda civica e gli esempi di insight
 2. rinomina o sostituisci `datasets/demo-saldi-stato/` con i tuoi dataset
-3. aggiungi le anagrafiche condivise in `support/`
-4. aggiorna `<repo-slug>` nei workflow (bucket GCS e prefix registry)
+3. aggiungi le anagrafiche condivise in `support/` e i derivati in `compose/`
+4. sostituisci lo slug della repo: `REPO_SLUG` nel `Makefile`, `name`/`Home`/`source_id` in `pyproject.toml`
 5. aggiorna la riga `schedule` del pipeline alle cadenze del dataset
-6. esegui `make check` e `python -m pytest tests/`
+6. esegui `make check` e `make test`
 
 La struttura resta invariata. Non serve capire tutto subito.
 
 ## Esecuzione tecnica
 
 ```bash
-pip install -r requirements.txt
-make check        # valida tutti i dataset.yml (preflight)
+pip install -e ".[dev,pipeline]"
+make check        # valida tutti i dataset.yml (preflight, richiede rete)
 make seeds        # esegue i support dataset
-make run          # esegue tutti i dataset (RAW → CLEAN → MART)
-python -m pytest tests/
+make run-all      # support → dataset → compose (RAW → CLEAN → MART)
+make test         # pytest su tests/ e dashboard/tests/
 ```
+
+Comandi utili:
+
+- `make run-<slug>` — un solo dataset, es. `make run-demo-saldi-stato`
+- `make status-<slug>` — ultimo run e stato di un dataset
+- `make batch-all` + `make run-batch` — esecuzione selettiva da `batch.txt`
 
 Nota di contratto:
 
