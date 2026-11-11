@@ -9,11 +9,14 @@ schema_version: 1
 
 dataset:
   name: "demo_saldi_stato"
-  source_id: "mef_bdap"
+  source_id: "openbdap"
   tags: [demo, finanza-pubblica, saldi]
   category: finanza-pubblica
   description: "Demo — saldi di finanza pubblica (BDAP) usato come esempio di struttura."
   years: [2022]
+  time_coverage:
+    start_year: 2003
+    end_year: 2024
 
 raw:
   output_policy: "versioned"
@@ -73,3 +76,6 @@ mart:
 
 validation:
   fail_on_error: true
+
+output:
+  artifacts: minimal

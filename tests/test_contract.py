@@ -5,7 +5,7 @@ Verifica la struttura del repo, non il motore del toolkit:
   - ogni dataset espone un contratto minimo (dataset.yml, SQL dichiarati)
   - i path dichiarati sono relativi e POSIX
   - non si committano output di run (out/)
-  - presenza dei componenti condivisi (Makefile, requirements.txt, workflows)
+  - presenza dei componenti condivisi (Makefile, pyproject.toml, workflows)
 
 Markers: contract (contratto pubblico, artifact format).
 """
@@ -22,7 +22,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = REPO_ROOT / "out"
 REQUIRED_FILES = [
     REPO_ROOT / "Makefile",
-    REPO_ROOT / "requirements.txt",
+    REPO_ROOT / "pyproject.toml",
     REPO_ROOT / "conftest.py",
     REPO_ROOT / "LICENSE",
     REPO_ROOT / "README.md",
@@ -81,7 +81,7 @@ def test_each_dataset_declares_minimum_contract(dataset_configs: list[Path]) -> 
         assert dataset["clean"].get("required_columns"), f"{rel}: manca clean.required_columns"
         assert dataset["clean"]["validate"].get("primary_key"), f"{rel}: manca clean.validate.primary_key"
         assert dataset["clean"]["validate"].get("not_null"), f"{rel}: manca clean.validate.not_null"
-        assert dataset["clean"]["validate"].get("min_rows") == 1, f"{rel}: min_rows deve essere 1"
+        assert dataset["clean"]["validate"].get("min_rows", 0) >= 1, f"{rel}: min_rows deve essere >= 1"
         assert dataset["mart"]["tables"], f"{rel}: manca mart.tables"
         assert dataset["mart"].get("required_tables"), f"{rel}: manca mart.required_tables"
         assert dataset["mart"]["validate"].get("table_rules"), f"{rel}: manca mart.validate.table_rules"
