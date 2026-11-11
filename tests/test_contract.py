@@ -106,7 +106,7 @@ def test_dataset_paths_are_relative_and_posix(dataset_configs: list[Path]) -> No
         dataset = yaml.safe_load(cfg.read_text(encoding="utf-8"))
         rel = str(cfg.relative_to(REPO_ROOT))
         for key, value in _iter_path_values(dataset):
-            if value.startswith("http://") or value.startswith("https://"):
+            if value.startswith(("http://", "https://")):
                 continue
             assert value, f"{rel}: path vuoto per '{key}'"
             assert "\\" not in value, f"{rel}: path '{key}' deve usare separatori POSIX: {value}"
