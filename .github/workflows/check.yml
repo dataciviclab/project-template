@@ -16,8 +16,7 @@ on:
       - "pyproject.toml"
 
 jobs:
-  # Lint + test. I controlli sui singoli dataset.yml stanno in validate-config,
-  # che gira solo sui dataset toccati dalla PR.
+  # Lint + test
   test:
     runs-on: ubuntu-latest
     steps:
@@ -33,27 +32,9 @@ jobs:
           test_dir: "tests dashboard/tests"
           pytest_args: "-v --tb=short"
 
-  detect:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    outputs:
-      dirs: ${{ steps.detect.outputs.dirs }}
-      count: ${{ steps.detect.outputs.count }}
-      found: ${{ steps.detect.outputs.found }}
-    steps:
-      - uses: actions/checkout@v7
-      - uses: dataciviclab/.github/actions/detect-changed-datasets@main
-        id: detect
-        with:
-          paths: "datasets support compose"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+  # Preflight dei dataset.yml: valida contratto e raggiungibilità delle fonti.
   validate-config:
-    needs: detect
-    if: github.event_name == 'pull_request' && needs.detect.outputs.found == 'true'
     uses: dataciviclab/.github/.github/workflows/dataset-config-check-reusable.yml@main
     with:
-      install: "pip install -e '.[dev,pipeline]'"
-      configs: ${{ needs.detect.outputs.dirs }}
+      globs: "support datasets compose"
       years: "from-config"
