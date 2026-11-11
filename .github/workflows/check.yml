@@ -1,0 +1,40 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "datasets/**"
+      - "compose/**"
+      - "support/**"
+      - "**/*.py"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "**/*.sql"
+      - "**/Makefile"
+      - "pyproject.toml"
+
+jobs:
+  # Lint + test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dataciviclab/.github/actions/python-setup@main
+        with:
+          install-extras: "dev,pipeline"
+        timeout-minutes: 8
+      - uses: dataciviclab/.github/actions/python-ci@main
+        with:
+          lint_paths: "tests/ dashboard/tests/"
+          mypy_paths: ""
+          test_dir: "tests dashboard/tests"
+          pytest_args: "-v --tb=short"
+
+  # Preflight dei dataset.yml: valida contratto e raggiungibilità delle fonti.
+  validate-config:
+    uses: dataciviclab/.github/.github/workflows/dataset-config-check-reusable.yml@main
+    with:
+      globs: "support datasets compose"
+      years: "from-config"

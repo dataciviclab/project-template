@@ -1,0 +1,34 @@
+name: pipeline
+
+on:
+  pull_request:
+    types: [closed]
+    paths:
+      - "datasets/**"
+      - "compose/**"
+      - "support/**"
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: pipeline-${{ github.event.pull_request.number || github.ref || 'schedule' }}
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    if: github.event.pull_request.merged == true || github.event_name != 'pull_request'
+    uses: dataciviclab/.github/.github/workflows/pipeline-reusable.yml@main
+    with:
+      repo-slug: "${{ github.event.repository.name }}"
+      run-command: "make run-all"
+      # detect-paths abilita il batch selettivo: dopo un merge si rieseguono
+      # solo i dataset toccati (il reusable genera batch.txt e chiama `make run-batch`).
+      detect-paths: "datasets support compose"
+      # extra pyproject da installare (aggiungi `raw` se il repo ha script di estrazione)
+      install-extras: "dev,pipeline"
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    secrets: inherit

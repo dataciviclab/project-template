@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# Nome del package: quando cloni il template rinominalo in `dataciviclab-<repo-slug>`.
+# Deve restare un nome PEP 508 valido (niente segnaposto): `pip install -e .` gira in CI.
+name = "dataciviclab-template"
+version = "0.1.0"
+description = "<descrizione breve, ≤15 parole>"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+
+# duckdb: dipendenza runtime (usata dai test SQL e dal motore).
+# toolkit è CLI esterno → vive nell'extra `pipeline`.
+# lab-connectors arriva transitivamente da toolkit (non si dichiara).
+dependencies = [
+    "duckdb>=1.5.3,<2",
+]
+
+# Nessun package Python: il repo è dati + SQL + scripts.
+# Esplicito per evitare il flat-layout discovery di setuptools.
+[tool.setuptools]
+packages = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.5",
+]
+pipeline = [
+    "dataciviclab-toolkit @ git+https://github.com/dataciviclab/toolkit.git",
+]
+# Serve solo se il repo ha dashboard/: `pip install -e ".[dashboard]"`
+dashboard = [
+    "streamlit>=1.61",
+    "plotly>=5.18",
+    "altair>=6.2",
+    "pandas>=3.0",
+    "duckdb>=1.5.3",
+    "lab-connectors[duckdb] @ git+https://github.com/dataciviclab/lab-connectors.git",
+]
+
+[project.urls]
+Home = "https://github.com/dataciviclab/<repo-slug>"
+
+[tool.toolkit.extends]
+# Slug della repo: usato dal registry e dai consumer cross-repo.
+source_id = "<repo-slug>"
